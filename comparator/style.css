@@ -1,0 +1,612 @@
+body {
+  font-family:
+    "Noto Sans JP",
+    system-ui, -apple-system, "Segoe UI", Roboto,
+    "Hiragino Sans", "Yu Gothic UI", "Yu Gothic",
+    "Hiragino Kaku Gothic ProN", Meiryo,
+    "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  background: #f9fafb;
+}
+
+:root {
+  --primary-color:         #16a34a;
+  --primary-hover-color:   #15803d;
+  --secondary-color:       #f3f4f6;
+  --secondary-hover-color: #e5e7eb;
+  --alert-color:           #ffe6e6;
+  --panel:                 #ffffff;
+  --border:                #ccc;
+  --row-hover-color:       #f3f4f6;
+  --text:                  #111827;
+  --text-sub:              #6b7280;
+
+  --radius:     10px;
+  --shadow:     0 2px 6px rgba(0,0,0,0.08);
+  --control-h:  32px;
+  --control-px: 8px;
+  --bot-margin: 5px;
+
+  --color-cheap-bg:   #E1F5EE;
+  --color-cheap-text: #0F6E56;
+  --color-high-bg:    #FAECE7;
+  --color-high-text:  #993C1D;
+}
+
+/* ==============================
+   タイトル
+   ============================== */
+#title-area { margin: 10px 0 20px 0; }
+#title-area h1 { margin: 0 0 5px 0; }
+#title-area p { font-size: 13px; color: #666; margin: 0; }
+
+/* ==============================
+   レイアウト
+   ============================== */
+.container {
+  width: 100%;
+  max-width: 1040px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 20px;
+  align-items: flex-start;
+}
+
+.col-left, .col-right {
+  flex: 1 1 440px;
+  max-width: 500px;
+  min-width: 0;
+}
+
+@media (max-width: 767px) {
+  .container { display: block; max-width: 500px; }
+  .col-left, .col-right { width: 100%; max-width: 100%; }
+  input, select { font-size: 16px; }
+}
+
+/* ==============================
+   パネル
+   ============================== */
+.panel {
+  background: var(--panel);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius);
+  padding: 12px;
+  margin: 12px 0;
+  box-shadow: var(--shadow);
+}
+
+.panel h2 { margin: 0 0 12px 0; }
+
+/* 共通ヘッダー */
+.site-header {
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 24px 24px;
+  text-align: center;
+}
+
+.site-logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary-color);
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+  text-decoration: none
+}
+
+.site-tagline {
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+/* ==============================
+   入力全般
+   ============================== */
+input, select {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  padding: 3px;
+  transition: all 0.15s ease;
+  height: var(--control-h);
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid #4a90e2;
+  background-color: #f0f8ff;
+  box-shadow: 0 0 4px rgba(74,144,226,0.5);
+}
+
+input::placeholder { color: #aaa; }
+
+input.error { background-color: var(--alert-color); }
+input.error:focus {
+  border: 1px solid #ff4d4d;
+  box-shadow: 0 0 4px rgba(255,77,77,0.5);
+}
+
+/* ==============================
+   入力グリッド
+   ============================== */
+.input-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.field-group { display: flex; flex-direction: column; gap: 4px; }
+
+.field-group label {
+  font-size: 12px;
+  color: var(--text-sub);
+  font-weight: 500;
+}
+
+/* オートコンプリートラッパー */
+.ac-wrapper { position: relative; width: 100%; }
+.ac-wrapper input { width: 100%; box-sizing: border-box; }
+
+.field-group input { width: 100%; box-sizing: border-box; }
+.field-group .total-wrapper { width: 100%; }
+
+/* 内容量＋単位一体化 */
+.total-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  height: var(--control-h);
+  box-sizing: border-box;
+}
+
+.total-wrapper .total {
+  flex: 1;
+  min-width: 0;
+  border: none !important;
+  box-shadow: none !important;
+  height: 100%;
+  padding: 0 var(--control-px);
+  text-align: right;
+}
+
+.total-wrapper .total:focus {
+  outline: none;
+  background-color: #f0f8ff;
+}
+
+.total-wrapper .unit {
+  flex-shrink: 0;
+  border: none;
+  border-left: 1px solid #ccc;
+  background: #f3f4f6;
+  height: 100%;
+  padding: 0 2px;
+  font-size: 12px;
+  cursor: pointer;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  text-align: center;
+  width: 36px;
+}
+
+/* オートコンプリート候補リスト */
+.suggestions {
+  font-size: 13px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  z-index: 20;
+  max-height: 150px;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 0 4px 4px;
+  box-shadow: var(--shadow);
+}
+
+.suggestions li { padding: 6px 8px; cursor: pointer; }
+.suggestions li:hover { background: #e6f2ff; }
+.suggestions li.selected { background-color: #b0d5ff; }
+
+/* ==============================
+   リアルタイム単価表示
+   ============================== */
+.unit-price-display {
+  margin-top: 8px;
+  padding: 9px 12px;
+  border-radius: var(--radius);
+  border: 1px solid #e5e7eb;
+  background: var(--secondary-color);
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.unit-price-display.has-value {
+  background: var(--panel);
+  border-color: #aaa;
+}
+
+.upd-hint { font-size: 13px; color: var(--text-sub); }
+.upd-label { font-size: 12px; color: var(--text-sub); }
+.upd-value { font-size: 20px; font-weight: 500; color: var(--text); }
+.upd-unit  { font-size: 13px; font-weight: 400; color: var(--text-sub); margin-left: 2px; }
+
+/* ==============================
+   ボタン
+   ============================== */
+button {
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 6px 10px;
+  box-shadow: var(--shadow);
+  height: var(--control-h);
+}
+
+.btn-primary { background: var(--primary-color); border-color: var(--primary-color); color: #fff; }
+.btn-primary:hover { background: var(--primary-hover-color); }
+
+.btn-secondary { background: var(--secondary-color); }
+.btn-secondary:hover { background: var(--secondary-hover-color); }
+
+.btn-icon {
+  width: 28px;
+  height: 28px;
+  padding: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  box-shadow: none;
+}
+.btn-icon svg { width: 16px; height: 16px; display: block; }
+.delete-btn:hover { background: var(--alert-color); }
+
+.btn-sm {
+  height: 26px;
+  font-size: 12px;
+  padding: 0 10px;
+  box-shadow: none;
+}
+
+.register-btn { width: 100%; margin-top: 10px; }
+
+.reg-msg { font-size: 12px; min-height: 18px; margin-top: 6px; }
+.reg-msg.success   { color: var(--color-cheap-text); }
+.reg-msg.error-msg { color: #993C1D; }
+
+/* ==============================
+   タブ
+   ============================== */
+.tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+
+.tab {
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-sub);
+  cursor: pointer;
+  box-shadow: none;
+  height: auto;
+}
+
+.tab.active {
+  background: var(--secondary-color);
+  color: var(--text);
+  border-color: #aaa;
+  font-weight: 500;
+}
+
+/* ==============================
+   すべて開く/閉じるバー
+   ============================== */
+.all-toggle-bar { display: flex; gap: 6px; margin-bottom: 10px; }
+
+/* ==============================
+   カード折りたたみ共通
+   ============================== */
+.card-toggle-header {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-toggle-icon { font-size: 11px; color: var(--text-sub); flex-shrink: 0; margin-left: 6px; }
+
+/* ==============================
+   カテゴリセクション（食材ごとビュー）
+   ============================== */
+.cat-section { margin-bottom: 10px; }
+
+.cat-section-header {
+  padding: 6px 12px;
+  background: #e9eaec;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-sub);
+  margin-bottom: 6px;
+}
+
+/* ==============================
+   食材カード
+   ============================== */
+.food-card {
+  background: var(--panel);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.food-card-header {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e5e7eb;
+  background: var(--secondary-color);
+}
+
+.food-name { font-size: 14px; font-weight: 500; color: var(--text); }
+.food-unit-label { font-size: 11px; color: var(--text-sub); margin-left: 6px; }
+
+/* ==============================
+   店舗行（食材ごとビュー）
+   ============================== */
+.store-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 8px;
+  border-bottom: 1px solid #f3f4f6;
+  position: relative;
+  overflow: hidden;
+}
+.store-row:last-of-type { border-bottom: none; }
+.store-row.has-memo { cursor: pointer; }
+
+.heat-bg { position: absolute; inset: 0; pointer-events: none; }
+
+.store-name-cell {
+  font-size: 13px;
+  color: var(--text-sub);
+  width: 7em;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bar-wrap { flex: 1; position: relative; z-index: 1; }
+.bar { height: 5px; border-radius: 3px; }
+
+.unit-price-cell {
+  font-size: 13px;
+  font-weight: 500;
+  width: 96px;
+  text-align: right;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.badge-slot {
+  flex-shrink: 0;
+  width: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  z-index: 1;
+}
+
+.badge { font-size: 10px; padding: 2px 6px; border-radius: 4px; }
+.badge-cheap { background: var(--color-cheap-bg); color: var(--color-cheap-text); }
+.badge-high  { background: var(--color-high-bg);  color: var(--color-high-text); }
+
+.memo-indicator {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  font-size: 12px;
+  color: var(--text-sub);
+  width: 16px;
+}
+
+.row-actions {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* ==============================
+   メモ・編集スライドパネル
+   ============================== */
+.slide-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+
+.slide-panel.open { max-height: 400px; }
+
+.memo-content {
+  padding: 8px 12px;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--text-sub);
+  background: #fafafa;
+  border-top: 1px solid #f3f4f6;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.memo-content::before {
+  content: "メモ：";
+  font-style: normal;
+  font-weight: 500;
+  color: var(--text-sub);
+  margin-right: 2px;
+}
+
+/* 編集フォーム */
+.edit-form {
+  padding: 12px;
+  background: #f0f8ff;
+  border-top: 1px solid #d0e8ff;
+}
+
+.edit-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.edit-form-grid .field-group { display: flex; flex-direction: column; gap: 4px; }
+.edit-form-grid .field-group label { font-size: 12px; color: var(--text-sub); font-weight: 500; }
+.edit-form-grid input, .edit-form-grid .total-wrapper { width: 100%; box-sizing: border-box; }
+.edit-form-grid .total-wrapper .total { width: auto; }
+
+.edit-form-actions { display: flex; gap: 6px; justify-content: flex-end; }
+
+/* ==============================
+   店舗カード（お店ごとビュー）
+   ============================== */
+.store-card {
+  background: var(--panel);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.store-card-title {
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: 1px solid #e5e7eb;
+  background: var(--secondary-color);
+  color: var(--text);
+}
+
+/* ==============================
+   カテゴリヘッダー（お店ごとビュー）視認性強化
+   ============================== */
+.store-cat-header {
+  font-size: 12px;
+  color: var(--text-sub);
+  font-weight: 500;
+  padding: 5px 12px 5px 10px;
+  background: #EEF4EE;
+  border-bottom: 1px solid #d4e8d4;
+  border-left: 3px solid var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* 編集フォーム 内容量selectを短く */
+.ef-unit-select { width: 28px !important; }
+
+/* ==============================
+   スマホ対応（375px想定）
+   ============================== */
+@media (max-width: 480px) {
+  .bar-wrap { display: none; }
+  .store-name-cell { width: 5.5em; }
+  .unit-price-cell { width: 84px; }
+  .badge-slot { width: 38px; }
+}
+
+/* 食材行（お店ごとビュー） */
+.item-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-bottom: 1px solid #f3f4f6;
+  position: relative;
+  overflow: hidden;
+}
+.item-row:last-of-type { border-bottom: none; }
+.item-row.has-memo { cursor: pointer; }
+
+.item-row-name {
+  font-size: 13px;
+  color: var(--text-sub);
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.item-row-price {
+  font-size: 13px;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+  color: var(--text);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==============================
+   折りたたみパネルヘッダー
+   ============================== */
+.panel-header-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  margin-bottom: 12px;
+  user-select: none;
+}
+.panel-header-toggle h2 { margin: 0; }
+.toggle-icon { font-size: 12px; color: var(--text-sub); }
+
+/* ==============================
+   共通
+   ============================== */
+.empty-msg { font-size: 13px; color: var(--text-sub); margin: 4px 0; }
+.hidden { display: none; }
+
+/* ==============================
+   フッター
+   ============================== */
+#site-footer {
+  margin-top: 40px;
+  padding: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-copy { font-size: 12px; color: var(--text-sub); margin: 0; }
+
+.footer-nav a { font-size: 12px; color: var(--text-sub); text-decoration: none; }
+.footer-nav a:hover { color: var(--primary-color); text-decoration: underline; }
