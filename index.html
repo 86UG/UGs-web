@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="自炊・節約に役立つ計算ツール集。食費の一人前コスト計算、お店ごとの単価比較など、毎日の家計管理をシンプルにサポートします。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="★★★ | 自炊・節約ツール集">
+  <meta property="og:description" content="自炊・節約に役立つ計算ツール集。食費の一人前コスト計算、お店ごとの単価比較など。">
+  <title>★★★ | 自炊・節約ツール集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #16a34a;
+      --primary-hover-color: #15803d;
+      --secondary-color: #f3f4f6;
+      --secondary-hover-color: #e5e7eb;
+      --text: #111827;
+      --text-sub: #6b7280;
+      --panel: #ffffff;
+      --border: #e5e7eb;
+      --radius: 10px;
+      --shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Noto Sans JP", system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: #f9fafb;
+      min-width: 375px;
+      line-height: 1.6;
+    }
+
+    /* 共通ヘッダー */
+    .site-header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px 24px;
+      text-align: center;
+    }
+
+    .site-logo {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary-color);
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .site-tagline {
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    /* メインコンテンツ */
+    .main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 32px 16px 48px;
+    }
+
+    /* コンセプト */
+    .concept {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .concept p {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.8;
+    }
+
+    .concept strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* セクションタイトル */
+    .section-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-sub);
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    /* ツールカード一覧 */
+    .tool-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .tool-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: box-shadow 0.15s ease, border-color 0.15s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .tool-card:hover {
+      box-shadow: 0 4px 14px rgba(0,0,0,0.10);
+      border-color: #d1d5db;
+    }
+
+    .tool-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: #e8f5ee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .tool-card-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .tool-card-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .tool-card-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    .tool-card-arrow {
+      color: var(--text-sub);
+      font-size: 18px;
+      flex-shrink: 0;
+      transition: transform 0.15s ease;
+    }
+
+    .tool-card:hover .tool-card-arrow {
+      transform: translateX(3px);
+      color: var(--primary-color);
+    }
+
+    .tool-card-badge {
+      font-size: 11px;
+      color: var(--primary-color);
+      background: #e8f5ee;
+      border: 1px solid #bbf7d0;
+      border-radius: 20px;
+      padding: 2px 8px;
+      margin-left: 8px;
+      font-weight: 500;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+
+    .tool-card-badge.wip {
+      color: var(--text-sub);
+      background: var(--secondary-color);
+      border-color: var(--border);
+    }
+
+    /* 作者について */
+    .about {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .about-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .about-body {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.8;
+    }
+
+    /* フッター */
+    #site-footer {
+      margin-top: 40px;
+      padding: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin: 0;
+    }
+
+    .footer-nav a {
+      font-size: 12px;
+      color: var(--text-sub);
+      text-decoration: none;
+    }
+
+    .footer-nav a:hover {
+      color: var(--primary-color);
+      text-decoration: underline;
+    }
+
+    /* スマホ対応 */
+    @media (max-width: 480px) {
+      .site-header {
+        padding: 16px 16px 20px;
+      }
+
+      .tool-card {
+        padding: 16px;
+        gap: 14px;
+      }
+
+      .tool-card-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+      }
+
+      .concept, .about {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="site-logo">★★★</div>
+    <p class="site-tagline">自炊・節約に役立つ計算ツール集</p>
+  </header>
+
+  <main class="main">
+
+    <div class="concept">
+      <p>「自炊を頑張りたい」「節約を極めたい」<br>——そんなあなたに向けて、ちょっと役立つツールを作っています。</p>
+    </div>
+
+    <p class="section-title">ツール一覧</p>
+
+    <div class="tool-list">
+
+      <a class="tool-card" href="/calculator/">
+        <div class="tool-card-icon">🍳</div>
+        <div class="tool-card-body">
+          <div class="tool-card-name">
+            その一皿、いくら？
+            <span class="tool-card-badge">公開中</span>
+          </div>
+          <div class="tool-card-desc">食材の内容量・価格・使用量を入力すると、レシピ一人前の食費がわかります。</div>
+        </div>
+        <div class="tool-card-arrow">›</div>
+      </a>
+
+      <a class="tool-card" href="/comparator/">
+        <div class="tool-card-icon">🏪</div>
+        <div class="tool-card-body">
+          <div class="tool-card-name">
+            どこが安い？
+            <span class="tool-card-badge wip">準備中</span>
+          </div>
+          <div class="tool-card-desc">食材の内容量と価格を入力すると、お店ごとの単価を比較できます。</div>
+        </div>
+        <div class="tool-card-arrow">›</div>
+      </a>
+
+    </div>
+
+    <div class="about">
+      <p class="about-title">このサイトについて</p>
+      <p class="about-body">自炊しながら「これっていくらかかってるんだろう」「どこで買うのが一番安いんだろう」と思ったことがきっかけで作り始めました。計算が面倒に感じる場面をひとつずつ、ツールにしていくつもりです。</p>
+    </div>
+
+  </main>
+
+  <footer id="site-footer">
+    <p class="footer-copy">© 2026 ★★★</p>
+    <nav class="footer-nav">
+      <a href="privacy-policy.html">プライバシーポリシー</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
