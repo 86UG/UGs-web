@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="食材の内容量と価格を入力すると、お店ごとに単価を比較できます。自炊・節約・家計管理に。">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="どこが安い？｜食材価格比較ツール">
+    <meta property="og:description" content="食材の内容量と価格を入力すると、お店ごとに単価を比較できます。">
+    <meta name="twitter:card" content="summary">
+    <title>どこが安い？｜食材価格比較ツール</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+
+      /* ===== 中央寄せラッパー ===== */
+      .page-wrapper {
+        max-width: 1072px;
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- 共通ヘッダー -->
+    <header class="site-header">
+      <a href="/" class="site-logo">★★★</a>
+      <p class="site-tagline">自炊・節約に役立つ計算ツール集</p>
+    </header>
+
+    <div class="page-wrapper">
+
+      <div id="title-area">
+        <h1>どこが安い？</h1>
+        <p>食材の内容量と価格を入力すると、お店ごとの単価を比較できます。</p>
+      </div>
+
+      <div class="container">
+
+        <!-- 左カラム：入力パネル -->
+        <div class="col-left">
+          <section class="panel">
+            <h2>食材を登録</h2>
+
+            <div class="input-grid">
+              <div class="field-group">
+                <label for="i-store">店舗名</label>
+                <div class="ac-wrapper">
+                  <input type="text" id="i-store" placeholder="例：Aスーパー" autocomplete="off">
+                  <ul class="suggestions hidden" id="sug-store"></ul>
+                </div>
+              </div>
+              <div class="field-group">
+                <label for="i-food">食材名</label>
+                <div class="ac-wrapper">
+                  <input type="text" id="i-food" placeholder="例：卵" autocomplete="off">
+                  <ul class="suggestions hidden" id="sug-food"></ul>
+                </div>
+              </div>
+              <div class="field-group">
+                <label>内容量</label>
+                <div class="total-wrapper">
+                  <input type="text" id="i-qty" inputmode="decimal" placeholder="例：10" class="total">
+                  <select id="i-unit" class="unit">
+                    <option value="個">個</option>
+                    <option value="g">g</option>
+                    <option value="mL">mL</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field-group">
+                <label for="i-price">価格</label>
+                <input type="text" id="i-price" inputmode="decimal" placeholder="例：198">
+              </div>
+            </div>
+
+            <!-- リアルタイム単価表示 -->
+            <div class="unit-price-display" id="upd">
+              <span class="upd-hint">内容量と価格を入力すると単価が表示されます</span>
+            </div>
+
+            <!-- カテゴリ -->
+            <div class="field-group" style="margin-top:8px;">
+              <label for="i-category">カテゴリ</label>
+              <div class="ac-wrapper">
+                <input type="text" id="i-category" placeholder="例：野菜・肉類・乳製品" autocomplete="off">
+                <ul class="suggestions hidden" id="sug-category"></ul>
+              </div>
+            </div>
+
+            <!-- メモ -->
+            <div class="field-group" style="margin-top:8px;">
+              <label for="i-memo">メモ（任意）</label>
+              <input type="text" id="i-memo" placeholder="例：特売時の価格">
+            </div>
+
+            <button class="btn-primary register-btn" onclick="registerItem()">登録する</button>
+            <div id="reg-msg" class="reg-msg"></div>
+          </section>
+        </div>
+
+        <!-- 右カラム：比較パネル -->
+        <div class="col-right">
+          <section class="panel" id="compare-panel">
+            <h2>比較</h2>
+            <div id="compare-body">
+              <div class="tabs">
+                <button class="tab active" onclick="switchTab(0)">食材ごと</button>
+                <button class="tab" onclick="switchTab(1)">お店ごと</button>
+              </div>
+              <div id="view-food">
+                <p class="empty-msg">食材を登録すると比較が表示されます</p>
+              </div>
+              <div id="view-store" style="display:none;">
+                <p class="empty-msg">食材を登録すると比較が表示されます</p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+      </div>
+
+    </div><!-- /.page-wrapper -->
+
+    <footer id="site-footer">
+      <p class="footer-copy">© 2026 ★★★</p>
+      <nav class="footer-nav">
+        <a href="../privacy-policy.html">プライバシーポリシー</a>
+      </nav>
+    </footer>
+
+    <script src="main.js" defer></script>
+  </body>
+</html>
