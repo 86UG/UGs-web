@@ -138,7 +138,7 @@ function createRow() {
   row.innerHTML = `
     <div class="row-line1">
       <div class="name-wrapper">
-        <input type="text" class="name" placeholder="食材名（任意）" autocomplete="off">
+        <input type="text" class="name" placeholder="食材名" autocomplete="off">
         <ul class="suggestions hidden"></ul>
       </div>
       <div class="total-wrapper">
