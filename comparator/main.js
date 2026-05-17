@@ -590,3 +590,100 @@ function togglePanel(bodyId, headerEl) {
   const isHidden = body.classList.toggle("hidden");
   icon.textContent = isHidden ? "▼" : "▲";
 }
+
+// ==============================
+// エクスポート
+// ==============================
+function exportCSV() {
+  const items = ItemStore.getAll();
+  if (items.length === 0) { alert("エクスポートするデータがありません。"); return; }
+
+  const header = ["店舗名", "食材名", "内容量", "単位", "価格", "カテゴリ", "メモ"];
+  const rows = items.map(i => [
+    i.store, i.food, i.qty, i.unit, i.price, i.category ?? "", i.memo ?? ""
+  ].map(v => `"${String(v).replace(/"/g, '""')}"`));
+
+  const csv = [header, ...rows].map(r => r.join(",")).join("\r\n");
+  const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  
+  // 現在の日付時刻を取得
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth() + 1;
+  const day = currentDate.getDate();
+  const hour = currentDate.getHours();
+  const min = currentDate.getMinutes();
+  const date = year + String(month).padStart(2, "0") + String(day).padStart(2, "0") + String(hour).padStart(2, "0") + String(min).padStart(2, "0");
+
+  a.download = `price-lists_${date}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ==============================
+// インポート
+// ==============================
+function importCSV(input) {
+  const file = input.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const text = e.target.result.replace(/^\uFEFF/, "");
+      const lines = text.trim().split(/\r?\n/);
+      const dataLines = lines.slice(1);
+
+      const parseCSVLine = line => {
+        const result = [];
+        let cur = "", inQuote = false;
+        for (let i = 0; i < line.length; i++) {
+          const ch = line[i];
+          if (inQuote) {
+            if (ch === '"' && line[i+1] === '"') { cur += '"'; i++; }
+            else if (ch === '"') { inQuote = false; }
+            else { cur += ch; }
+          } else {
+            if (ch === '"') { inQuote = true; }
+            else if (ch === ',') { result.push(cur); cur = ""; }
+            else { cur += ch; }
+          }
+        }
+        result.push(cur);
+        return result;
+      };
+
+      const newItems = dataLines.map(line => {
+        const cols = parseCSVLine(line);
+        const qty   = Number(cols[2]) || 0;
+        const price = Number(cols[4]) || 0;
+        return {
+          id:       generateId(),
+          store:    cols[0] ?? "",
+          food:     cols[1] ?? "",
+          qty,
+          unit:     cols[3] ?? "g",
+          price,
+          unitPrice: qty > 0 ? price / qty : 0,
+          category: cols[5] ?? "",
+          memo:     cols[6] ?? ""
+        };
+      }).filter(i => i.store && i.food && i.qty > 0 && i.price > 0);
+
+      if (newItems.length === 0) { alert("有効なデータが見つかりませんでした。"); return; }
+
+      if (!confirm(`${newItems.length}件のデータをインポートします。既存データに追加されます。よろしいですか？`)) return;
+
+      ItemStore.saveAll([...ItemStore.getAll(), ...newItems]);
+      renderCompare();
+      alert(`${newItems.length}件インポートしました。`);
+    } catch (err) {
+      alert("CSVの読み込みに失敗しました。ファイルを確認してください。");
+    }
+  };
+  reader.readAsText(file, "UTF-8");
+  input.value = "";
+}

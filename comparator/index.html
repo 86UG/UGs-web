@@ -103,6 +103,8 @@
               <div class="tabs">
                 <button class="tab active" onclick="switchTab(0)">食材ごと</button>
                 <button class="tab" onclick="switchTab(1)">お店ごと</button>
+                <button class="btn-secondary btn-sm" onclick="exportCSV()">エクスポート</button>
+                <button class="btn-secondary btn-sm" onclick="document.getElementById('import-file').click()">インポート</button>
               </div>
               <div id="view-food">
                 <p class="empty-msg">食材を登録すると比較が表示されます</p>
@@ -124,6 +126,9 @@
         <a href="../privacy-policy.html">プライバシーポリシー</a>
       </nav>
     </footer>
+    
+    <!-- インポート用隠しinput -->
+    <input type="file" id="import-file" accept=".csv" class="hidden" onchange="importCSV(this)">
 
     <script src="main.js" defer></script>
   </body>
