@@ -103,8 +103,14 @@
               <div class="tabs">
                 <button class="tab active" onclick="switchTab(0)">食材ごと</button>
                 <button class="tab" onclick="switchTab(1)">お店ごと</button>
-                <button class="btn-secondary btn-sm" onclick="exportCSV()">エクスポート</button>
-                <button class="btn-secondary btn-sm" onclick="document.getElementById('import-file').click()">インポート</button>
+                <div class="row-actions" >
+                  <button class="btn-secondary btn-icon" onclick="exportCSV()" aria-label="csvファイル出力" title="csvファイル出力">
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M11 21h2V10.83l3.59 3.58L18 13l-6-6-6 6 1.41 1.41L11 10.83V21zm-7-18h16v2H4V3z"/></svg>
+                  </button>
+                  <button class="btn-secondary btn-icon" onclick="document.getElementById('import-file').click()" aria-label="csvファイル取り込み" title="csvファイル取り込み">
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M11 3h2v10.17l3.59-3.58L18 11l-6 6-6-6 1.41-1.41L11 13.17V3zm-7 16h16v2H4v-2z"/></svg>
+                  </button>
+                </div>
               </div>
               <div id="view-food">
                 <p class="empty-msg">食材を登録すると比較が表示されます</p>

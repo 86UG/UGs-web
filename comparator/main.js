@@ -20,10 +20,22 @@ const ItemStore = {
 // ==============================
 // アイコンSVG
 // ==============================
-const TRASH_ICON_SVG = `<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M9 3h6l1 2h5v2H3V5h5l1-2zm1 7h2v9h-2v-9zm4 0h2v9h-2v-9zM6 8h12l-1 13H7L6 8z"/></svg>`;
-const EDIT_ICON_SVG  = `<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M3 17.25V21h3.75L17.8 9.94l-3.75-3.75L3 17.25zm2.92 2.33H5v-.92l9.06-9.06.92.92L5.92 19.58zM20.71 7.04a1.003 1.003 0 0 0 0-1.42L18.37 3.29a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.83z"/></svg>`;
-const SAVE_ICON_SVG  = `<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14V7l-2-4zM5 5h11.17L17 6.83V19H5V5zm7 0v4H6V5h6z"/><circle cx="12" cy="14" r="2" fill="currentColor"/></svg>`;
-const MEMO_ICON_SVG  = `<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="13" height="13"><path fill="currentColor" d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v16h12V4H6zm2 3h8v2H8V7zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>`;
+// ゴミ箱
+const TRASH_ICON_SVG    = `<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M9 3h6l1 2h5v2H3V5h5l1-2zm1 7h2v9h-2v-9zm4 0h2v9h-2v-9zM6 8h12l-1 13H7L6 8z"/></svg>`;
+// 登録
+const REGISTER_ICON_SVG = `<svg aria-hidden="true" focusable="false" viewBox="0 0 20 20"><path fill="currentColor" d="M4 4h10v2H4V4zm0 4h10v2H4V8zm0 4h6v2H4v-2zm12-1v-3h2v3h3v2h-3v3h-2v-3h-3v-2h3z"/></svg>`;
+// 編集
+const EDIT_ICON_SVG     = `<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M3 17.25V21h3.75L17.8 9.94l-3.75-3.75L3 17.25zm2.92 2.33H5v-.92l9.06-9.06.92.92L5.92 19.58zM20.71 7.04a1.003 1.003 0 0 0 0-1.42L18.37 3.29a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.83z"/></svg>`;
+// 保存
+const SAVE_ICON_SVG     = `<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14V7l-2-4zM5 5h11.17L17 6.83V19H5V5zm7 0v4H6V5h6z"/><circle cx="12" cy="14" r="2" fill="currentColor"/></svg>`;
+// キャンセル
+const CANCEL_ICON_SVG   = `<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M10 6L4 12l6 6v-4h4a4 4 0 0 0 0-8h-1v2h1a2 2 0 0 1 0 4h-4V6z"/></svg>`;
+// メモ
+const MEMO_ICON_SVG     = `<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="13" height="13"><path fill="currentColor" d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v16h12V4H6zm2 3h8v2H8V7zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>`;
+// エクスポート
+const EXPORT_ICON_SVG   = `<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M11 21h2V10.83l3.59 3.58L18 13l-6-6-6 6 1.41 1.41L11 10.83V21zm-7-18h16v2H4V3z"/></svg>`;
+// インポート
+const IMPORT_ICON_SVG   = `<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M11 3h2v10.17l3.59-3.58L18 11l-6 6-6-6 1.41-1.41L11 13.17V3zm-7 16h16v2H4v-2z"/></svg>`;
 
 // ==============================
 // 初期化
@@ -292,8 +304,8 @@ function renderEditFormHtml(item, prefix) {
         </div>
       </div>
       <div class="edit-form-actions">
-        <button class="btn-secondary btn-sm" onclick="cancelEdit('${item.id}','${prefix}')">キャンセル</button>
-        <button class="btn-primary btn-sm" onclick="saveEdit('${item.id}','${prefix}')">${SAVE_ICON_SVG}&nbsp;保存</button>
+        <button class="btn-primary btn-icon" onclick="saveEdit('${item.id}','${prefix}')" aria-label="保存" title="保存">${SAVE_ICON_SVG}</button>
+        <button class="btn-secondary btn-icon" onclick="cancelEdit('${item.id}','${prefix}')" aria-label="キャンセル" title="キャンセル">${CANCEL_ICON_SVG}</button>
       </div>
     </div>`;
 }
@@ -434,8 +446,8 @@ function renderFoodView() {
 
         let badgeInner = "";
         if (rows.length > 1) {
-          if (r.unitPrice === minP)      badgeInner = `<span class="badge badge-cheap">最安</span>`;
-          else if (r.unitPrice === maxP) badgeInner = `<span class="badge badge-high">最高</span>`;
+          if (r.unitPrice === minP)      badgeInner = `<span class="badge badge-cheap">安い</span>`;
+          else if (r.unitPrice === maxP) badgeInner = `<span class="badge badge-high">高い</span>`;
         }
 
         html += `
@@ -523,7 +535,7 @@ function renderStoreView() {
         let badgeInner = "";
         if (sameFood.length > 1) {
           if (r.unitPrice === minP)      badgeInner = `<span class="badge badge-cheap">安い</span>`;
-          else if (r.unitPrice === maxP) badgeInner = `<span class="badge badge-high">高め</span>`;
+          else if (r.unitPrice === maxP) badgeInner = `<span class="badge badge-high">高い</span>`;
         }
 
         html += `

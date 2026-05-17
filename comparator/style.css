@@ -307,7 +307,7 @@ button {
   box-shadow: none;
 }
 
-.register-btn { width: 100%; margin-top: 10px; }
+.register-btn { width: 100%; margin-top: 12px; }
 
 .reg-msg { font-size: 12px; min-height: 18px; margin-top: 6px; }
 .reg-msg.success   { color: var(--color-cheap-text); }
@@ -391,7 +391,7 @@ button {
 .food-unit-label { font-size: 11px; color: var(--text-sub); margin-left: 6px; }
 
 /* ==============================
-   店舗行（食材ごとビュー）
+  店舗行（食材ごとビュー）
    ============================== */
 .store-row {
   display: flex;
@@ -458,11 +458,16 @@ button {
 }
 
 .row-actions {
-  display: flex;
+  /* display: flex;
   gap: 2px;
   flex-shrink: 0;
   position: relative;
-  z-index: 1;
+  z-index: 1; */
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
 }
 
 /* ==============================
@@ -536,14 +541,14 @@ button {
 }
 
 /* ==============================
-   カテゴリヘッダー（お店ごとビュー）視認性強化
+  カテゴリヘッダー（お店ごとビュー）
    ============================== */
 .store-cat-header {
   font-size: 12px;
   color: var(--text-sub);
   font-weight: 500;
   padding: 5px 12px 5px 10px;
-  background: #EEF4EE;
+  background: #ffffff;
   border-bottom: 1px solid #d4e8d4;
   border-left: 3px solid var(--primary-color);
   display: flex;
