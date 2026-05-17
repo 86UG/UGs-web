@@ -46,41 +46,19 @@ const IngredientStore = {
   }
 };
 
-// ゴミ箱アイコンSVG
-const TRASH_ICON_SVG = `
-  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
-    <path fill="currentColor" d="M9 3h6l1 2h5v2H3V5h5l1-2zm1 7h2v9h-2v-9zm4 0h2v9h-2v-9zM6 8h12l-1 13H7L6 8z"/>
-  </svg>
-`;
-
-// 登録アイコンSVG
-const REGISTER_ICON_SVG = `
-  <svg aria-hidden="true" focusable="false" viewBox="0 0 20 20">
-    <path fill="currentColor" d="M4 4h10v2H4V4zm0 4h10v2H4V8zm0 4h6v2H4v-2zm12-1v-3h2v3h3v2h-3v3h-2v-3h-3v-2h3z"/>
-  </svg>
-`;
-
-// 編集アイコンSVG
-const EDIT_ICON_SVG = `
-  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
-    <path fill="currentColor" d="M3 17.25V21h3.75L17.8 9.94l-3.75-3.75L3 17.25zm2.92 2.33H5v-.92l9.06-9.06.92.92L5.92 19.58zM20.71 7.04a1.003 1.003 0 0 0 0-1.42L18.37 3.29a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.83z"/>
-  </svg>
-`;
-
-// 保存アイコンSVG
-const SAVE_ICON_SVG = `
-  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
-    <path fill="currentColor" d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14V7l-2-4zM5 5h11.17L17 6.83V19H5V5zm7 0v4H6V5h6z"/>
-    <circle cx="12" cy="14" r="2" fill="currentColor"/>
-  </svg>
-`;
-
-// キャンセルアイコンSVG
-const CANCEL_ICON_SVG = `
-  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
-    <path fill="currentColor" d="M10 6L4 12l6 6v-4h4a4 4 0 0 0 0-8h-1v2h1a2 2 0 0 1 0 4h-4V6z"/>
-  </svg>
-`;
+// ==============================
+// アイコンSVG
+// ==============================
+// ゴミ箱
+const TRASH_ICON_SVG = `<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M9 3h6l1 2h5v2H3V5h5l1-2zm1 7h2v9h-2v-9zm4 0h2v9h-2v-9zM6 8h12l-1 13H7L6 8z"/></svg>`;
+// 登録
+const REGISTER_ICON_SVG = `<svg aria-hidden="true" focusable="false" viewBox="0 0 20 20"><path fill="currentColor" d="M4 4h10v2H4V4zm0 4h10v2H4V8zm0 4h6v2H4v-2zm12-1v-3h2v3h3v2h-3v3h-2v-3h-3v-2h3z"/></svg>`;
+// 編集
+const EDIT_ICON_SVG = `<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M3 17.25V21h3.75L17.8 9.94l-3.75-3.75L3 17.25zm2.92 2.33H5v-.92l9.06-9.06.92.92L5.92 19.58zM20.71 7.04a1.003 1.003 0 0 0 0-1.42L18.37 3.29a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.83z"/></svg>`;
+// 保存
+const SAVE_ICON_SVG = `<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14V7l-2-4zM5 5h11.17L17 6.83V19H5V5zm7 0v4H6V5h6z"/><circle cx="12" cy="14" r="2" fill="currentColor"/></svg>`;
+// キャンセル
+const CANCEL_ICON_SVG = `<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M10 6L4 12l6 6v-4h4a4 4 0 0 0 0-8h-1v2h1a2 2 0 0 1 0 4h-4V6z"/></svg>`;
 
 // 初期行
 addRow();
@@ -438,12 +416,8 @@ function createEditRow(item) {
     </div>
     <input class="col-price" inputmode="decimal" value="${Number(item.price).toLocaleString()}">
     <div class="actions">
-      <button class="btn-primary btn-icon save-btn" aria-label="保存" title="保存">
-        ${SAVE_ICON_SVG}
-      </button>
-      <button class="btn-icon cancel-btn" aria-label="キャンセル" title="キャンセル">
-        ${CANCEL_ICON_SVG}
-      </button>
+      <button class="btn-primary btn-icon save-btn" aria-label="保存" title="保存">${SAVE_ICON_SVG}</button>
+      <button class="btn-icon cancel-btn" aria-label="キャンセル" title="キャンセル">${CANCEL_ICON_SVG}</button>
     </div>
   `;
 
