@@ -122,9 +122,9 @@ function createRow() {
       <div class="total-wrapper">
         <input type="text" class="total" inputmode="decimal" placeholder="内容量">
         <select class="unit">
+          <option value="個">個</option>
           <option value="g">g</option>
           <option value="mL">mL</option>
-          <option value="個">個</option>
         </select>
       </div>
       <input type="text" class="price" inputmode="decimal" placeholder="価格">
@@ -409,9 +409,9 @@ function createEditRow(item) {
     <div class="col-total-wrapper">
       <input class="col-total" inputmode="decimal" value="${Number(item.total).toLocaleString()}">
       <select class="col-unit">
+        <option value="個" ${unitVal === "個" ? "selected" : ""}>個</option>
         <option value="g"  ${unitVal === "g"  ? "selected" : ""}>g</option>
         <option value="mL" ${unitVal === "mL" ? "selected" : ""}>mL</option>
-        <option value="個" ${unitVal === "個" ? "selected" : ""}>個</option>
       </select>
     </div>
     <input class="col-price" inputmode="decimal" value="${Number(item.price).toLocaleString()}">
