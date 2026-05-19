@@ -242,6 +242,43 @@ input.error:focus {
 .suggestions li.selected { background-color: #b0d5ff; }
 
 /* ==============================
+   カテゴリタブ（入力パネル）
+   ============================== */
+.category-tab-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 6px;
+  min-height: 0;
+}
+
+.cat-tab-btn {
+  font-size: 12px;
+  padding: 3px 10px;
+  height: auto;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--secondary-color);
+  color: var(--text-sub);
+  cursor: pointer;
+  box-shadow: none;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.cat-tab-btn:hover {
+  background: var(--secondary-hover-color);
+  color: var(--text);
+}
+
+.cat-tab-btn.active {
+  background: var(--color-cheap-bg);
+  border-color: var(--color-cheap-text);
+  color: var(--color-cheap-text);
+  font-weight: 500;
+}
+
+/* ==============================
    リアルタイム単価表示
    ============================== */
 .unit-price-display {
@@ -458,11 +495,6 @@ button {
 }
 
 .row-actions {
-  /* display: flex;
-  gap: 2px;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 1; */
   flex-grow: 1;
   display: flex;
   justify-content: flex-end;

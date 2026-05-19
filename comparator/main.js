@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   ["i-store", "i-food", "i-qty", "i-price", "i-category", "i-memo"].forEach(id => {
     document.getElementById(id).addEventListener("keydown", e => {
-      if (e.key === "Enter") registerItem();
+      if (e.key === "Enter" && !e.isComposing) registerItem();
     });
   });
 
@@ -386,6 +386,26 @@ function deleteItem(itemId) {
 function renderCompare() {
   renderFoodView();
   renderStoreView();
+  renderCategoryTabs();
+}
+
+function renderCategoryTabs() {
+  const el = document.getElementById("category-tabs");
+  if (!el) return;
+  const cats = [...new Set(ItemStore.getAll().map(i => i.category).filter(c => c && c.trim()))].sort();
+  if (cats.length === 0) { el.innerHTML = ''; return; }
+  el.innerHTML = cats.map(cat =>
+    `<button class="cat-tab-btn" onclick="selectCategory('${escapeAttr(cat)}')">${escapeHtml(cat)}</button>`
+  ).join('');
+}
+
+function selectCategory(cat) {
+  const el = document.getElementById("i-category");
+  el.value = el.value === cat ? '' : cat; // 同じボタンを再度押すと解除
+  // アクティブ状態を更新
+  document.querySelectorAll(".cat-tab-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.textContent === el.value);
+  });
 }
 
 // --- 食材ごとビュー ---
@@ -408,41 +428,38 @@ function renderFoodView() {
     </div>`;
 
   cats.forEach((cat, ci) => {
-    const catItems = items.filter(i => normCat(i.category) === cat);
-    const foods    = [...new Set(catItems.map(i => i.food))];
+    const catItems  = items.filter(i => normCat(i.category) === cat);
+    const foods     = [...new Set(catItems.map(i => i.food))];
     const catBodyId = `fv-cat-body-${ci}`;
 
     html += `
-      <div class="cat-section">
-        <div class="cat-section-header card-toggle-header" onclick="toggleCard('${catBodyId}', this)">
+      <div class="store-card">
+        <div class="store-card-title card-toggle-header" onclick="toggleCard('${catBodyId}', this)">
           <span>${escapeHtml(cat)}</span>
           <span class="card-toggle-icon">▲</span>
         </div>
-        <div class="cat-section-body card-body" id="${catBodyId}">`;
+        <div class="card-body" id="${catBodyId}">`;
 
     foods.forEach((food, fi) => {
-      const rows   = catItems.filter(i => i.food === food);
-      const unit   = rows[0].unit;
-      const prices = rows.map(r => r.unitPrice);
-      const minP   = Math.min(...prices);
-      const maxP   = Math.max(...prices);
+      const rows       = catItems.filter(i => i.food === food);
+      const unit       = rows[0].unit;
+      const prices     = rows.map(r => r.unitPrice);
+      const minP       = Math.min(...prices);
+      const maxP       = Math.max(...prices);
       const foodBodyId = `fv-food-body-${ci}-${fi}`;
 
       html += `
-        <div class="food-card">
-          <div class="food-card-header card-toggle-header" onclick="toggleCard('${foodBodyId}', this)">
-            <div><span class="food-name">${escapeHtml(food)}</span><span class="food-unit-label">¥/${unit}あたり</span></div>
-            <span class="card-toggle-icon">▲</span>
-          </div>
-          <div class="card-body" id="${foodBodyId}">`;
+        <div class="store-cat-header card-toggle-header" onclick="toggleCard('${foodBodyId}', this)">
+          <span>${escapeHtml(food)}</span>
+          <span class="card-toggle-icon">▲</span>
+        </div>
+        <div class="card-body" id="${foodBodyId}">`;
 
       [...rows].sort((a, b) => a.unitPrice - b.unitPrice).forEach(r => {
-        const ratio    = maxP === minP ? 0.5 : (r.unitPrice - minP) / (maxP - minP);
-        const c        = getHeatColor(ratio);
-        const barW     = Math.round(35 + ratio * 55);
-        const priceStr = `¥${r.unitPrice.toFixed(2)}/${r.unit}`;
-        const tStyle   = c.textColor ? `color:${c.textColor};` : "";
-        const hasMemo  = !!(r.memo && r.memo.trim());
+        const ratio   = maxP === minP ? 0.5 : (r.unitPrice - minP) / (maxP - minP);
+        const c       = getHeatColor(ratio);
+        const tStyle  = c.textColor ? `color:${c.textColor};` : "";
+        const hasMemo = !!(r.memo && r.memo.trim());
 
         let badgeInner = "";
         if (rows.length > 1) {
@@ -451,11 +468,10 @@ function renderFoodView() {
         }
 
         html += `
-          <div class="store-row${hasMemo?' has-memo':''}" onclick="toggleMemoSlide('fv-memo-${r.id}',event,${hasMemo})">
+          <div class="item-row${hasMemo?' has-memo':''}" onclick="toggleMemoSlide('fv-memo-${r.id}',event,${hasMemo})">
             <div class="heat-bg" style="background:${c.bgColor};opacity:${c.bgOpacity};"></div>
-            <div class="store-name-cell">${escapeHtml(r.store)}</div>
-            <div class="bar-wrap"><div class="bar" style="width:${barW}%;background:${c.barColor};"></div></div>
-            <div class="unit-price-cell" style="${tStyle}">${priceStr}</div>
+            <div class="item-row-name">${escapeHtml(r.store)}</div>
+            <div class="item-row-price" style="${tStyle}">¥${r.unitPrice.toFixed(2)}/${r.unit}</div>
             <div class="badge-slot">${badgeInner}</div>
             <div class="memo-indicator">${hasMemo ? MEMO_ICON_SVG : ''}</div>
             <div class="row-actions" onclick="event.stopPropagation()">
@@ -471,7 +487,7 @@ function renderFoodView() {
           </div>`;
       });
 
-      html += `</div></div>`;
+      html += `</div>`;
     });
 
     html += `</div></div>`;
