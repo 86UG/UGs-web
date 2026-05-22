@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="調味料の量を大さじ・小さじ・カップ・mL・gで相互換算。人数スケールにも対応。">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="どのくらい？｜UGtools">
+    <meta property="og:description" content="調味料の量を大さじ・小さじ・カップ・mL・gで相互換算。人数スケールにも対応。">
+    <meta property="og:url" content="https://ugs-web.vercel.app/converter/">
+    <meta name="twitter:card" content="summary">
+    <title>どのくらい？｜UGtools</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+
+    <!-- 共通ヘッダー -->
+    <header class="site-header">
+      <a href="/" class="site-logo">UGtools</a>
+      <p class="site-tagline">自炊・節約に役立つ計算ツール集</p>
+    </header>
+
+    <div class="page-wrapper">
+
+      <div id="title-area">
+        <h1>どのくらい？</h1>
+        <p>調味料の量を単位変換します。人数を変えてスケールすることもできます。</p>
+      </div>
+
+      <div class="container">
+
+        <!-- 左カラム：入力 -->
+        <div class="col-left">
+          <section class="panel">
+            <h2>⚖️ 換算する</h2>
+
+            <!-- 調味料 -->
+            <div class="field-group">
+              <label for="s-seasoning">調味料</label>
+              <select id="s-seasoning">
+                <!-- JSで生成 -->
+              </select>
+            </div>
+
+            <!-- 量 + 単位 -->
+            <div class="field-group">
+              <label>量</label>
+              <div class="total-wrapper">
+                <input
+                  type="text"
+                  id="s-amount"
+                  inputmode="decimal"
+                  placeholder="例：1"
+                  class="total"
+                >
+                <select id="s-unit" class="unit" style="width:64px;">
+                  <option value="tbsp">大さじ</option>
+                  <option value="tsp">小さじ</option>
+                  <option value="cup">カップ</option>
+                  <option value="mL">mL</option>
+                  <option value="g">g</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- 人前スケール -->
+            <div style="margin-bottom: 4px;">
+              <p style="font-size:12px; color:var(--text-sub); font-weight:500; margin-bottom:6px;">人数スケール（任意）</p>
+              <div class="input-grid" style="margin-bottom:0;">
+                <div class="field-group" style="margin-bottom:0;">
+                  <label for="s-from-serving">元のレシピ</label>
+                  <div class="total-wrapper">
+                    <input
+                      type="text"
+                      id="s-from-serving"
+                      inputmode="decimal"
+                      placeholder="2"
+                      class="total"
+                    >
+                    <span class="unit-text">人前</span>
+                  </div>
+                </div>
+                <div class="field-group" style="margin-bottom:0;">
+                  <label for="s-to-serving">作りたい量</label>
+                  <div class="total-wrapper">
+                    <input
+                      type="text"
+                      id="s-to-serving"
+                      inputmode="decimal"
+                      placeholder="3"
+                      class="total"
+                    >
+                    <span class="unit-text">人前</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </section>
+        </div>
+
+        <!-- 右カラム：換算結果 -->
+        <div class="col-right">
+          <section class="panel">
+            <h2>📋 換算結果</h2>
+            <div id="result-body">
+              <p class="empty-msg">調味料と量を入力すると結果が表示されます</p>
+            </div>
+          </section>
+        </div>
+
+      </div>
+
+    </div><!-- /.page-wrapper -->
+
+    <footer id="site-footer">
+      <p class="footer-copy">© 2026 UGtools</p>
+      <nav class="footer-nav">
+        <a href="../privacy-policy.html">プライバシーポリシー</a>
+      </nav>
+    </footer>
+
+    <script src="main.js" defer></script>
+  </body>
+</html>
