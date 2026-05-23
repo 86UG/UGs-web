@@ -619,7 +619,7 @@ button {
 .item-row-name {
   font-size: 13px;
   color: var(--text-sub);
-  flex: 2;
+  width: 8em;
   position: relative;
   z-index: 1;
 }
