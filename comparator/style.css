@@ -548,7 +548,7 @@ button {
 .edit-form-grid .field-group { display: flex; flex-direction: column; gap: 4px; }
 .edit-form-grid .field-group label { font-size: 12px; color: var(--text-sub); font-weight: 500; }
 .edit-form-grid input, .edit-form-grid .total-wrapper { width: 100%; box-sizing: border-box; }
-.edit-form-grid .total-wrapper .total { width: auto; }
+.edit-form-grid .total-wrapper .total { width: 5em; }
 
 .edit-form-actions { display: flex; gap: 6px; justify-content: flex-end; }
 
