@@ -620,6 +620,7 @@ button {
   font-size: 13px;
   color: var(--text-sub);
   width: 7em;
+  flex-shrink: 2;
   position: relative;
   z-index: 1;
 }
