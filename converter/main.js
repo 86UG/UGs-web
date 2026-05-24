@@ -142,6 +142,23 @@ function fmt(n) {
   return parseFloat(n.toFixed(3)).toString();
 }
 
+// ===== 分数表示（大さじ・小さじ・カップ用）=====
+const FRAC_LABEL = { 0: '', 1: '1/4', 2: '1/2', 3: '3/4' };
+const FRACTION_UNITS = new Set(['tbsp', 'tsp', 'cup']);
+
+// ===== 1/4で丸める ===== 
+function fmtFraction(n) {
+  const rounded = Math.round(n * 4) / 4;
+  const intPart = Math.floor(rounded);
+  const fracIdx = Math.round((rounded - intPart) * 4); // 0,1,2,3
+  const fracStr = FRAC_LABEL[fracIdx] || '';
+
+  if (intPart === 0 && fracStr === '') return '0';
+  if (intPart === 0) return fracStr;
+  if (fracStr === '') return String(intPart);
+  return `${intPart}と${fracStr}`;
+}
+
 function renderResults(seasoning, amount, inputUnit, scale, showScale, results) {
   const scaleRounded = parseFloat(scale.toFixed(2));
   const fromVal = parseFloat(inpFromServing.value);
@@ -154,10 +171,11 @@ function renderResults(seasoning, amount, inputUnit, scale, showScale, results) 
   let rows = '';
   UNIT_ORDER.forEach(key => {
     const isInput = key === inputUnit;
+    const valStr = FRACTION_UNITS.has(key) ? fmtFraction(results[key]) : fmt(results[key]);
     rows += `
       <div class="conv-row${isInput ? ' is-input' : ''}">
         <span class="conv-unit-lbl">${UNIT_LABEL[key]}</span>
-        <span class="conv-val">${fmt(results[key])}</span>
+        <span class="conv-val">${valStr}</span>
       </div>`;
   });
 
@@ -168,6 +186,7 @@ function renderResults(seasoning, amount, inputUnit, scale, showScale, results) 
       ${scaleHtml}
     </div>
     <div class="conv-table">${rows}</div>
+    <p class="conv-note">※ 大さじ、小さじ、カップは1/4で丸めています。</p>
     <p class="conv-note">※ 密度は一般的な目安値です。製品により異なる場合があります。</p>
   `;
 }
