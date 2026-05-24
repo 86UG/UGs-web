@@ -45,6 +45,32 @@ body{
 #title-area { margin: 10px 0 20px 0; }
 #title-area h1 { margin: 0 0 5px 0; }
 #title-area p { font-size: 13px; color: #666; margin: 0; }
+#title-area details { margin-top:8px; }
+#title-area summary {
+  font-size: 13px;
+  color: var(--text-sub);
+  cursor: pointer;
+}
+
+#title-area ol {
+  font-size: 13px;
+  color: var(--text-sub);
+  line-height: 1.8;
+  margin-top: 5px;
+  padding-left: 1.4em;
+}
+
+#title-area .desc { margin-bottom: 6px; }
+
+#title-area ul {
+  list-style-type: square;
+  font-size: 12px;
+  color: var(--text-sub);
+  line-height: 1.8;
+  padding-left: 1.4em;
+}
+
+#title-area ul ul { list-style-type: circle; }
 
 /* ==============================
    レイアウト
@@ -390,7 +416,33 @@ button {
   background: #ebebec;
 }
 
+.ingredient-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+}
+
+.field-group {
+  display: grid;
+  grid-column:1/-1;
+}
+
+.field-group label {
+  font-size: 12px;
+}
+
 /* 1行目：食材名・内容量・価格・ボタン */
+.used-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.used-row .used {
+  flex: 1;
+  text-align: right;
+}
+
 .row-line1 {
   display: flex;
   align-items: center;
@@ -398,7 +450,6 @@ button {
   margin-bottom: 6px;
 }
 
-/* 食材名 */
 .row-line1 .name-wrapper {
   flex: 1.5;
   min-width: 0;
