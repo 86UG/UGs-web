@@ -187,7 +187,7 @@ function renderResults(seasoning, amount, inputUnit, scale, showScale, results) 
     </div>
     <div class="conv-table">${rows}</div>
     <p class="conv-note">※ 大さじ、小さじ、カップは1/4で丸めています。</p>
-    <p class="conv-note">※ 密度は一般的な目安値です。製品により異なる場合があります。</p>
+    <p class="conv-note">※ 一般的な密度の目安値を参考に算出しています。製品により異なる場合があります。</p>
   `;
 }
 
