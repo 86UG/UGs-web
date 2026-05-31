@@ -114,7 +114,7 @@ function createRow() {
   row.className = "row";
 
   row.innerHTML = `
-    <div class="ingredient-grid">
+    <!--<div class="ingredient-grid">-->
 
       <div class="field-group name-field">
         <label>食材名</label>
@@ -158,7 +158,7 @@ function createRow() {
         </div>
       </div>
 
-    </div>
+    <!--</div>-->
   `;
 
   setupNumberInputs(row);
@@ -280,7 +280,7 @@ function calculate() {
     const panel = document.getElementById("result-panel");
     panel.classList.remove("hidden");
     
-    document.getElementById("result").innerText =
+    document.getElementById("result-panel").innerText =
       "0より大きい数字を入力してください";
 
     if (firstErrorEl) firstErrorEl.focus();
@@ -289,7 +289,7 @@ function calculate() {
   }
 
   // 正常時
-  const resultEl = document.getElementById("result");
+  const resultEl = document.getElementById("result-panel");
   let html = "";
 
   // 内訳
@@ -313,7 +313,6 @@ function calculate() {
     <div class="result-row">
       <span class="name">合計：</span>
       <span class="value">${Number(totalCost.toFixed(0)).toLocaleString()} 円</span>
-      <span class="ratio"></span>
     </div>
   `;
 
@@ -322,7 +321,6 @@ function calculate() {
     <div class="result-row perPerson">
       <span class="name">一人前：</span>
       <span class="value">${Number((totalCost / people).toFixed(0)).toLocaleString()} 円</span>
-      <span class="ratio"></span>
     </div>
   `;
 
@@ -838,7 +836,7 @@ function renderRecipeList() {
   list.innerHTML = recipes.map(r => `
     <div class="recipe-item">
       <span class="recipe-name">${r.name}</span>
-      <span class="recipe-meta">${r.people}人前・${r.items.length}品</span>
+      <span class="recipe-meta">${r.people}人前・${r.items.length}食材</span>
       <div class="actions">
         <button class="btn-secondary btn-sm" onclick="loadRecipe('${r.id}')">呼び出し</button>
         <button class="btn-icon delete-btn" onclick="deleteRecipe('${r.id}')" title="削除">

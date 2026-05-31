@@ -11,36 +11,34 @@ body{
     "Hiragino Sans", "Yu Gothic UI", "Yu Gothic",
     "Hiragino Kaku Gothic ProN", Meiryo,
     "Helvetica Neue", Arial, sans-serif;
-  color: var(--text);
-  background: #f9fafb;
+  background: var(--color2);
   min-width: 375px;
   line-height: 1.6;
 }
 
 :root{
-  --primary-color:          #16a34a; /* 主操作ボタン背景色 */
-  --primary-hover-color:    #15803d;
-  --secondary-color:        #f3f4f6; /* 副操作ボタン・ヘッダー背景色 */
-  --secondary-hover-color:  #e5e7eb;
-  --alert-color:            #ffe6e6; /* 警告色：削除ボタン、エラー箇所 */
-  --panel:                  #ffffff; /* パネル背景色 */
-  --border:                 #e5e7eb; /* 境界線 */
-  --row-hover-color:        #f3f4f6;
-  --text:                   #111827;
-  --text-sub:               #6b7280;
+  --color1:          #16a34a; /* 緑 */
+  --color1-hover:    #15803d;
+  --color2:         #f3f4f6; /* 灰色 */
+  --color2-hover:  #e5e7eb;
+  --color3:                  #ffffff; /* 白 */
+  --color-alert:            #ffe6e6; /* 赤 */
+  --color-border:                 #e5e7eb;
+  --color-border2:                 #ccc;
+  --color-text-sub:               #6b7280;
 
-  --radius:     10px;
+  --radius1:     10px;
+  --radius2:     8px;
+  --radius3:     4px;
+  
   --shadow:     0 2px 6px rgba(0,0,0,0.08);
   --control-h:  32px;
   --control-px: 8px;
   --bot-margin: 5px; /* 行間 */
-
-  /* --name-width:   21%;  食材名 幅：ヘッダー、入力、リスト */
-  /* --other-width:  17%;  価格、内容量、使用量 幅 */
 }
 
 /* ==============================
-   タイトル
+  タイトル
    ============================== */
 #title-area { margin: 10px 0 20px 0; }
 #title-area h1 { margin: 0 0 5px 0; }
@@ -48,13 +46,13 @@ body{
 #title-area details { margin-top:8px; }
 #title-area summary {
   font-size: 13px;
-  color: var(--text-sub);
+  color: var(--color-text-sub);
   cursor: pointer;
 }
 
 #title-area ol {
   font-size: 13px;
-  color: var(--text-sub);
+  color: var(--color-text-sub);
   line-height: 1.8;
   margin-top: 5px;
   padding-left: 1.4em;
@@ -65,7 +63,7 @@ body{
 #title-area ul {
   list-style-type: square;
   font-size: 12px;
-  color: var(--text-sub);
+  color: var(--color-text-sub);
   line-height: 1.8;
   padding-left: 1.4em;
 }
@@ -73,7 +71,7 @@ body{
 #title-area ul ul { list-style-type: circle; }
 
 /* ==============================
-   レイアウト
+  レイアウト
    ============================== */
 /* 中央寄せラッパー */
 .page-wrapper {
@@ -114,12 +112,12 @@ body{
 }
 
 /* ==============================
-   パネル
+  パネル
    ============================== */
 .panel {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  background: var(--color3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius1);
   padding: 12px;
   margin: 12px 0;
   box-shadow: var(--shadow);
@@ -131,8 +129,8 @@ body{
   共通ヘッダー
    ============================== */
 .site-header {
-  background: var(--panel);
-  border-bottom: 1px solid var(--border);
+  background: var(--color3);
+  border-bottom: 1px solid var(--color-border);
   padding: 20px 24px 24px;
   text-align: center;
 }
@@ -140,7 +138,7 @@ body{
 .site-logo {
   font-size: 22px;
   font-weight: 700;
-  color: var(--primary-color);
+  color: var(--color1);
   letter-spacing: -0.5px;
   margin-bottom: 8px;
   text-decoration: none;
@@ -148,15 +146,16 @@ body{
 
 .site-tagline {
   font-size: 13px;
-  color: var(--text-sub);
+  color: var(--color-text-sub);
 }
 
 /* ==============================
-   入力全般
+  入力全般
    ============================== */
-input, select {
+input {
   box-sizing: border-box;
-  border: 1px solid #ccc;
+  border-radius: var(--radius3);
+  border: 1px solid var(--color-border2);
   padding: 3px;
   transition: all 0.15s ease;
   height: var(--control-h);
@@ -171,7 +170,7 @@ input:focus {
 
 input::placeholder { color: #aaa; }
 
-input.error { background-color: var(--alert-color); }
+input.error { background-color: var(--color-alert); }
 input.error:focus {
   border: 1px solid #ff4d4d;
   box-shadow: 0 0 4px rgba(255, 77, 77, 0.5);
@@ -193,7 +192,7 @@ input.error:focus {
 .list-header {
   font-size: 12px;
   font-weight: 500;
-  color: var(--text-sub);
+  color: var(--color-text-sub);
   display: flex;
   justify-content: flex-start;
   gap: 1%;
@@ -203,8 +202,8 @@ input.error:focus {
 .list-header div {
   box-sizing: border-box;
   background-color: transparent;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius2);
   padding: 4px 0;
   text-align: center;
 }
@@ -214,9 +213,8 @@ button {
   width: auto;
   box-sizing: border-box;
   cursor: pointer;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  color: var(--text);
+  border-radius: var(--radius2);
+  border: 1px solid var(--color-border);
   padding: 6px 10px;
   box-shadow: var(--shadow);
   height: var(--control-h);
@@ -224,21 +222,21 @@ button {
 
 /* 主操作ボタン */
 .btn-primary{
-  background: var(--primary-color);
-  border-color: var(--primary-color);
+  background: var(--color1);
+  border-color: var(--color1);
   color: #fff;
 }
-.btn-primary:hover{ background: var(--primary-hover-color); }
+.btn-primary:hover{ background: var(--color1-hover); }
 
 /* 副操作ボタン */
-.btn-secondary{ background: var(--secondary-color); }
-.btn-secondary:hover{ background: var(--secondary-hover-color); }
+.btn-secondary{ background: var(--color2); }
+.btn-secondary:hover{ background: var(--color2-hover); }
 
 /* 計算 */
 .calc-btn { width: 100%; margin-top: 12px; }
 
 /* 削除ボタン選択時 */
-.delete-btn:hover { background: var(--alert-color); }
+.delete-btn:hover { background: var(--color-alert); }
 
 /* アイコンボタン（削除用） */
 .btn-icon{
@@ -258,40 +256,43 @@ button {
 }
 
 /*計算結果*/
-#result {
+#result-panel {
   padding: 20px;
-  border-radius: 12px;
-  background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
   min-height: 24px;
 }
 
 .result-row {
+  font-size: 14px;
   display: flex; 
-  justify-content: left; 
+  justify-content: left;
+  text-align: right;
 }
 
-#result .name {
-  display: inline-block;
-  text-align: right;
-  width: 45%;
+.result-row .name {
+  /* display: inline-block; */
+  width: 40%;
 }
 
-#result .value {
-  display: inline-block;
-  text-align: right;
-  width: 30%;
+.result-row .value {
+  /* display: inline-block; */
+  width: 35%;
 }
 
-#result .ratio {
-  display: inline-block;
-  text-align: right;
+.result-row .ratio {
+  /* display: inline-block; */
   flex-grow: 1;
 }
 
-#result .perPerson {
-  font-size: 24px;
+.perPerson {
+  font-size: 22px;
   font-weight: bold;
-  color: var(--primary-color);
+  color: var(--color1);
+}
+
+.perPerson .value {
+  /* flex-grow: 1; */
+  /* text-align: left; */
+  /* min-width: 25%; */
 }
 
 /* 候補リスト */
@@ -315,7 +316,7 @@ button {
   left: 0;
   right: 0;
   background: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border2);
   z-index: 10;
   max-height: 150px;
   overflow-y: auto;
@@ -352,7 +353,7 @@ button {
 }
 
 .ingredient-item:hover {
-  background: var(--row-hover-color);
+  background: var(--color2-hover);
 }
 
 .ing-name, .ing-price, .ing-total {
@@ -370,123 +371,64 @@ button {
 }
 
 /* ==============================
-   食材カード＋2行レイアウト
+  食材カード
    ============================== */
-
-/* カード化 */
 .row {
-  display: block !important;
-  background: var(--secondary-color);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto auto;
+  gap: 6px;
+  background: var(--color2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius1);
   padding: 10px;
   margin-bottom: 12px;
   transition: background 0.15s ease;
 }
+.row:hover { background: var(--color2-hover); }
+.row input, .ingredient-item input { padding: 0 var(--control-px); }
 
-.row:hover {
-  background: var(--row-hover-color);
-}
+.field-group { display: grid; grid-column: 1/-1; }
+.field-group label { font-size: 12px; }
 
-.row input, .ingredient-item input {
-  padding: 0 var(--control-px);
-}
+.name-field { grid-column: 1/5; grid-row: 1/2; }
 
-.ingredient-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: auto auto;
-  gap: 6px
-}
+.actions-field { align-items: flex-end; grid-column: 5/7; grid-row: 1/2; }
 
-.field-group {
-  display: grid;
-  grid-column: 1/-1;
-}
+.weight-field { grid-column: 1/3; grid-row: 2/3; }
 
-.field-group label {
-  font-size: 12px;
-}
+.price-field { grid-column: 3/5; grid-row: 2/3; }
 
-.name-field {
-  grid-column: 1 / 5;
-  grid-row: 1 / 2;
-}
+.usage-field { grid-column: 5/7; grid-row: 2/3; }
 
-.actions-field {
-  grid-column: 5 / 7;
-  grid-row: 1 / 2;
-}
-
-.weight-field {
-  grid-column: 1 / 3;
-  grid-row: 2 / 3;
-}
-
-.price-field {
-  grid-column: 3 / 5;
-  grid-row: 2 / 3;
-}
-
-.usage-field {
-  grid-column: 5 / 7;
-  grid-row: 2 / 3;
-}
-
-/* 1行目：食材名・内容量・価格・ボタン */
-.name-input {
-  /* width: var(--name-width); */
-}
-
-.price-input, .weight-input, .usage-input {
-  width: 100%;
-  text-align: right;
-}
-
-.usage-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.usage-wrapper .usage-input {
-  flex: 1;
-  text-align: right;
-}
+.price-input, .weight-input, .usage-input { width: 100%; text-align: right; }
 
 /* 内容量＋単位プルダウン一体化 */
 .weight-warpper {
   display: flex;
   align-items: center;
-  flex: 1.2;
   min-width: 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
   overflow: hidden;
   height: var(--control-h);
   box-sizing: border-box;
 }
 
 .weight-warpper .weight-input {
-  flex: 1;
   min-width: 0;
-  border: none !important;
-  box-shadow: none !important;
+  border-radius: var(--radius3) 0 0 var(--radius3);
   height: 100%;
   padding: 0 4px;
   text-align: right;
 }
 
 .weight-warpper .weight-input:focus {
-  outline: none;
-  background-color: #f0f8ff;
+  box-shadow: 0 0 4px rgba(74, 144, 226, 0.5);
 }
-
 .weight-warpper .unit {
-  flex-shrink: 0;
-  border: none;
-  border-left: 1px solid #ccc;
-  background: #f3f4f6;
+  border: 1px solid var(--color-border2);
+  border-left: none;
+  border-radius: 0 var(--radius3) var(--radius3) 0;
+  background: var(--color2);
   height: 100%;
   padding: 0 2px;
   font-size: 12px;
@@ -495,17 +437,24 @@ button {
   appearance: none;
   -webkit-appearance: none;
   text-align: center;
-  /* width: 36px; */
+  width: 2em;
+}
+
+/* 使用量 */
+.usage-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .unit-label {
   font-size: 12px;
-  color: var(--text-sub);
+  color: var(--color-text-sub);
   white-space: nowrap;
 }
 
 /* ==============================
-   登録済み食材リスト 列幅（ヘッダー・行共通）
+  登録済み食材リスト 列幅（ヘッダー・行共通）
    ============================== */
 .col-name  { flex: 0 0 30%; }
 .col-price { flex: 0 0 22%; justify-content: flex-end; }
@@ -528,7 +477,7 @@ button {
   display: flex;
   align-items: stretch;
   height: var(--control-h);
-  border: 1px solid var(--border);
+  border: 1px solid var(--color-border2);
   border-radius: 4px;
   overflow: hidden;
   box-sizing: border-box;
@@ -538,6 +487,7 @@ button {
   flex: 1;
   min-width: 0;
   border: none !important;
+  border-radius: 0;
   box-shadow: none !important;
   height: 100%;
   padding: 0 4px;
@@ -551,11 +501,11 @@ button {
 
 .col-total-wrapper .col-unit {
   flex-shrink: 0;
-  width: 34px;
+  width: 2em;
   height: 100%;
   border: none;
-  border-left: 1px solid var(--border);
-  background: #e9eaec;
+  border-left: 1px solid var(--color-border2);
+  background: var(--color2);
   font-size: 12px;
   text-align: center;
   cursor: pointer;
@@ -572,7 +522,7 @@ button {
 /* ==============================
    レシピ保存ボタン
    ============================== */
-/* .recipe-save-btn { margin: 8px 0 0 8px; } */
+.recipe-save-btn { margin-left: 12px; }
 
 /* ==============================
    モーダル
@@ -591,7 +541,7 @@ button {
 
 .modal {
   background: #fff;
-  border-radius: var(--radius);
+  border-radius: var(--radius1);
   padding: 24px;
   width: 90%;
   max-width: 320px;
@@ -625,7 +575,7 @@ button {
 }
 
 .recipe-item:last-child { border-bottom: none; }
-.recipe-item:hover { background: var(--row-hover-color); }
+.recipe-item:hover { background: var(--color2-hover); }
 
 .recipe-name {
   font-size: 14px;
@@ -638,7 +588,7 @@ button {
 
 .recipe-meta {
   font-size: 11px;
-  color: var(--text-sub);
+  color: var(--color-text-sub);
   white-space: nowrap;
 }
 
@@ -651,13 +601,13 @@ button {
 
 .empty-msg {
   font-size: 13px;
-  color: var(--text-sub);
+  color: var(--color-text-sub);
   margin: 4px 0;
 }
 
 .modal-msg {
   font-size: 13px;
-  color: var(--text-sub);
+  color: var(--color-text-sub);
   margin: 0 0 16px 0;
 }
 /* ==============================
@@ -678,7 +628,7 @@ button {
 
 .toggle-icon {
   font-size: 12px;
-  color: var(--text-sub);
+  color: var(--color-text-sub);
 }
 
 /* ==============================
@@ -687,7 +637,7 @@ button {
 #site-footer {
   margin-top: 40px;
   padding: 20px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--color-border);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -697,17 +647,17 @@ button {
 
 .footer-copy {
   font-size: 12px;
-  color: var(--text-sub);
+  color: var(--color-text-sub);
   margin: 0;
 }
 
 .footer-nav a {
   font-size: 12px;
-  color: var(--text-sub);
+  color: var(--color-text-sub);
   text-decoration: none;
 }
 
 .footer-nav a:hover {
-  color: var(--primary-color);
+  color: var(--color1);
   text-decoration: underline;
 }
