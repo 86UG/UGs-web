@@ -218,6 +218,7 @@ button {
   padding: 6px 10px;
   box-shadow: var(--shadow);
   height: var(--control-h);
+  color: #000000;
 }
 
 /* 主操作ボタン */
@@ -255,7 +256,9 @@ button {
   display: block;
 }
 
-/*計算結果*/
+/* ==============================
+  計算結果
+   ============================== */
 #result-panel {
   padding: 20px;
   min-height: 24px;
@@ -268,31 +271,16 @@ button {
   text-align: right;
 }
 
-.result-row .name {
-  /* display: inline-block; */
-  width: 40%;
-}
+.result-row .name { width: 40%;}
 
-.result-row .value {
-  /* display: inline-block; */
-  width: 35%;
-}
+.result-row .value { width: 35%; }
 
-.result-row .ratio {
-  /* display: inline-block; */
-  flex-grow: 1;
-}
+.result-row .ratio { flex-grow: 1; }
 
 .perPerson {
   font-size: 22px;
   font-weight: bold;
   color: var(--color1);
-}
-
-.perPerson .value {
-  /* flex-grow: 1; */
-  /* text-align: left; */
-  /* min-width: 25%; */
 }
 
 /* 候補リスト */
