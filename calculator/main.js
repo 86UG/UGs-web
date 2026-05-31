@@ -114,27 +114,17 @@ function createRow() {
   row.className = "row";
 
   row.innerHTML = `
-    <div class="row-line1">
-      <div class="name-wrapper">
-        <input type="text" class="name" placeholder="食材名" autocomplete="off">
-        <ul class="suggestions hidden"></ul>
-      </div>
-      <div class="total-wrapper">
-        <input type="text" class="total" inputmode="decimal" placeholder="内容量">
-        <select class="unit">
-          <option value="個">個</option>
-          <option value="g">g</option>
-          <option value="mL">mL</option>
-        </select>
-      </div>
-      <input type="text" class="price" inputmode="decimal" placeholder="価格">
-    </div>
+    <div class="ingredient-grid">
 
-    <div class="row-line2">
-      <input type="text" class="used" inputmode="decimal" placeholder="使用量">
-      <span class="unit-label">g</span>
+      <div class="field-group name-field">
+        <label>食材名</label>
+        <div class="name-warpper">
+          <input type="text" class="name-input" placeholder="例：卵" autocomplete="off">
+          <ul class="suggestions hidden"></ul>
+        </div>
+      </div>
 
-      <div class="actions">
+      <div class="actions actions-field">
         <button class="btn-icon save-btn" aria-label="食材を保存" title="食材を保存">
           ${REGISTER_ICON_SVG}
         </button>
@@ -142,6 +132,32 @@ function createRow() {
           ${TRASH_ICON_SVG}
         </button>
       </div>
+
+      <div class="field-group weight-field">
+        <label>内容量</label>
+        <div class="weight-warpper">
+          <input type="text" class="weight-input" inputmode="decimal" placeholder="例：10">
+          <select class="unit">
+            <option value="個">個</option>
+            <option value="g">g</option>
+            <option value="mL">mL</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="field-group price-field">
+        <label>価格</label>
+        <input type="text" class="price-input" inputmode="decimal" placeholder="例：298">
+      </div>
+
+      <div class="field-group usage-field">
+        <label>使用量</label>
+        <div class="usage-wrapper">
+          <input type="text" class="usage-input" inputmode="decimal" placeholder="例：1">
+          <span class="unit-label">個</span>
+        </div>
+      </div>
+
     </div>
   `;
 
@@ -160,7 +176,7 @@ function setupNumberInputs(row) {
     unitLabel.textContent = unitSelect.value;
   });
 
-  row.querySelectorAll(".price, .total, .used")
+  row.querySelectorAll(".price-input, .weight-input, .usage-input")
     .forEach(input => {
       input.addEventListener("blur", () => formatInput(input));
     });
@@ -168,9 +184,9 @@ function setupNumberInputs(row) {
 
 function setupSaveButton(row) {
   row.querySelector(".save-btn").addEventListener("click", () => {
-    const nameEl = row.querySelector(".name");
-    const priceEl = row.querySelector(".price");
-    const totalEl = row.querySelector(".total");
+    const nameEl = row.querySelector(".name-input");
+    const priceEl = row.querySelector(".price-input");
+    const totalEl = row.querySelector(".weight-input");
     const unit = row.querySelector(".unit").value;
 
     const name = nameEl.value.trim();
@@ -207,12 +223,12 @@ function setupSaveButton(row) {
 }
 
 function addRow() {
-  const list = document.getElementById("ingredient-row");
+  const list = document.getElementById("ingredients");
   const newRow = createRow();
 
   list.appendChild(newRow);
 
-  newRow.querySelector(".name").focus();
+  newRow.querySelector(".name-input").focus();
 }
 
 function calculate() {
@@ -227,14 +243,14 @@ function calculate() {
     firstErrorEl = peopleEl;
   }
 
-  const rows = document.querySelectorAll("#ingredient-row .row");
+  const rows = document.querySelectorAll("#ingredients .row");
   let totalCost = 0;
   let breakdown = [];
 
   rows.forEach(row => {   
-    const priceEl = row.querySelector(".price");
-    const totalEl = row.querySelector(".total");
-    const usedEl  = row.querySelector(".used");
+    const priceEl = row.querySelector(".price-input");
+    const totalEl = row.querySelector(".weight-input");
+    const usedEl  = row.querySelector(".usage-input");
 
     const price = validatePositiveNumber(priceEl);
     const total = validatePositiveNumber(totalEl);
@@ -253,7 +269,7 @@ function calculate() {
       return;
     }
 
-    const name = (row.querySelector(".name").value || "（名無しの食材）") + "：";
+    const name = (row.querySelector(".name-input").value || "（名無しの食材）") + "：";
     const cost = (price / total) * used;
     breakdown.push({ name, cost });
     totalCost += cost;
@@ -326,7 +342,7 @@ function setupRowEvents(row) {
   setupAutocomplete(row);
   // 削除ボタン（共通）
   row.querySelector(".delete-btn").addEventListener("click", function() {
-    const list = document.getElementById("ingredient-row");
+    const list = document.getElementById("ingredients");
 
     row.remove();
 
@@ -467,7 +483,7 @@ function saveEdit(id) {
 // ==============================
 document.addEventListener("click", e => {
   document.querySelectorAll(".suggestions").forEach(list => {
-    const wrapper = list.closest(".name-wrapper");
+    const wrapper = list.closest(".name-warpper");
 
     if (!wrapper.contains(e.target)) {
       list.classList.add("hidden");
@@ -476,7 +492,7 @@ document.addEventListener("click", e => {
 });
 
 function setupAutocomplete(row) {
-  const input = row.querySelector(".name");
+  const input = row.querySelector(".name-input");
   const list = row.querySelector(".suggestions");
   let selectedIndex = -1;
   let currentSuggestions = [];
@@ -580,9 +596,9 @@ function renderSuggestions(list, row, items, input, selectedIndex) {
 
 function applySuggestion(row, input, item) {
   input.value = item.name;
-  row.querySelector(".price").value =
+  row.querySelector(".price-input").value =
     Number(item.price).toLocaleString();
-  row.querySelector(".total").value =
+  row.querySelector(".weight-input").value =
     Number(item.total).toLocaleString();
 
   // 単位を復元して使用量ラベルも連動
@@ -600,7 +616,7 @@ function focusUsedInput(currentInput) {
   const row = currentInput.closest('.row');
   if (!row) return;
 
-  const usedInput = row.querySelector('.used');
+  const usedInput = row.querySelector('.usage-input');
   if (usedInput) {
     usedInput.focus();
     usedInput.select();
@@ -701,15 +717,15 @@ function saveRecipe(recipeName, overwriteId = null) {
   const people = parseFloat(normalizeNumber(peopleEl.value)) || 1;
 
   // 食材行を収集
-  const rows = document.querySelectorAll("#ingredient-row .row");
+  const rows = document.querySelectorAll("#ingredients .row");
   const items = [];
 
   rows.forEach(row => {
-    const name  = row.querySelector(".name").value.trim();
-    const total = parseFloat(normalizeNumber(row.querySelector(".total").value));
-    const price = parseFloat(normalizeNumber(row.querySelector(".price").value));
+    const name  = row.querySelector(".name-input").value.trim();
+    const total = parseFloat(normalizeNumber(row.querySelector(".weight-input").value));
+    const price = parseFloat(normalizeNumber(row.querySelector(".price-input").value));
     const unit  = row.querySelector(".unit").value;
-    const used  = parseFloat(normalizeNumber(row.querySelector(".used").value));
+    const used  = parseFloat(normalizeNumber(row.querySelector(".usage-input").value));
 
     if (!name) return;
 
@@ -755,9 +771,9 @@ function loadRecipe(id) {
   if (!recipe) return;
 
   // 入力中の内容があれば確認
-  const rows = document.querySelectorAll("#ingredient-row .row");
+  const rows = document.querySelectorAll("#ingredients .row");
   const hasInput = Array.from(rows).some(row =>
-    row.querySelector(".name").value.trim() !== ""
+    row.querySelector(".name-input").value.trim() !== ""
   );
 
   if (hasInput) {
@@ -768,22 +784,22 @@ function loadRecipe(id) {
   document.getElementById("people").value = recipe.people;
 
   // 食材行をクリアして再描画
-  const list = document.getElementById("ingredient-row");
+  const list = document.getElementById("ingredients");
   list.innerHTML = "";
 
   recipe.items.forEach(item => {
     const row = createRow();
     list.appendChild(row);
 
-    row.querySelector(".name").value = item.name;
-    row.querySelector(".used").value = item.used;
+    row.querySelector(".name-input").value = item.name;
+    row.querySelector(".usage-input").value = item.used;
 
     // 登録済み食材から価格・内容量を補完
     const unitSelect = row.querySelector(".unit");
     const stored = IngredientStore.getAll().find(i => i.name === item.name);
     if (stored) {
-      row.querySelector(".price").value = Number(stored.price).toLocaleString();
-      row.querySelector(".total").value = Number(stored.total).toLocaleString();
+      row.querySelector(".price-input").value = Number(stored.price).toLocaleString();
+      row.querySelector(".weight-input").value = Number(stored.total).toLocaleString();
       unitSelect.value = stored.unit ?? item.unit ?? "g";
     } else {
       unitSelect.value = item.unit ?? "g";

@@ -35,8 +35,8 @@ body{
   --control-px: 8px;
   --bot-margin: 5px; /* 行間 */
 
-  --name-width:   21%;  /* 食材名 幅：ヘッダー、入力、リスト */
-  --other-width:  17%;  /* 価格、内容量、使用量 幅 */
+  /* --name-width:   21%;  食材名 幅：ヘッダー、入力、リスト */
+  /* --other-width:  17%;  価格、内容量、使用量 幅 */
 }
 
 /* ==============================
@@ -209,34 +209,6 @@ input.error:focus {
   text-align: center;
 }
 
-/*食材、価格、内容量、使用量*/
-.row {
-  width: auto;
-  display: flex;
-  /* align-items: center; */
-  justify-content: flex-start;
-  gap: 1%;
-  margin-bottom: var(--bot-margin);
-  transition: background 0.15s ease;
-}
-
-.row:hover {
-  background: var(--row-hover-color);
-}
-
-.row input, .ingredient-item input {
-  padding: 0 var(--control-px);
-}
-
-.name {
-  width: var(--name-width);
-}
-
-.price, .total, .used {
-  width: var(--other-width);
-  text-align: right;
-}
-
 /*ボタン全般*/
 button {
   width: auto;
@@ -323,15 +295,14 @@ button {
 }
 
 /* 候補リスト */
-.name-wrapper {
+.name-warpper {
   box-sizing: border-box;
   display: flex;
   align-items: center;
   position: relative;
-  width: var(--name-width);
 }
 
-.name-wrapper .name {
+.name-warpper .name-input {
   height: var(--control-h);
   width: 100%;
 }
@@ -408,62 +379,83 @@ button {
   background: var(--secondary-color);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 8px 10px;
-  margin-bottom: 8px;
+  padding: 10px;
+  margin-bottom: 12px;
+  transition: background 0.15s ease;
 }
 
 .row:hover {
-  background: #ebebec;
+  background: var(--row-hover-color);
+}
+
+.row input, .ingredient-item input {
+  padding: 0 var(--control-px);
 }
 
 .ingredient-grid {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: repeat(6, 1fr);
   grid-template-rows: auto auto;
+  gap: 6px
 }
 
 .field-group {
   display: grid;
-  grid-column:1/-1;
+  grid-column: 1/-1;
 }
 
 .field-group label {
   font-size: 12px;
 }
 
+.name-field {
+  grid-column: 1 / 5;
+  grid-row: 1 / 2;
+}
+
+.actions-field {
+  grid-column: 5 / 7;
+  grid-row: 1 / 2;
+}
+
+.weight-field {
+  grid-column: 1 / 3;
+  grid-row: 2 / 3;
+}
+
+.price-field {
+  grid-column: 3 / 5;
+  grid-row: 2 / 3;
+}
+
+.usage-field {
+  grid-column: 5 / 7;
+  grid-row: 2 / 3;
+}
+
 /* 1行目：食材名・内容量・価格・ボタン */
-.used-row {
+.name-input {
+  /* width: var(--name-width); */
+}
+
+.price-input, .weight-input, .usage-input {
+  width: 100%;
+  text-align: right;
+}
+
+.usage-wrapper {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.used-row .used {
+.usage-wrapper .usage-input {
   flex: 1;
   text-align: right;
 }
 
-.row-line1 {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-bottom: 6px;
-}
-
-.row-line1 .name-wrapper {
-  flex: 1.5;
-  min-width: 0;
-  position: relative;
-  width: auto;
-}
-
-.row-line1 .name-wrapper .name {
-  width: 100%;
-  box-sizing: border-box;
-}
-
 /* 内容量＋単位プルダウン一体化 */
-.total-wrapper {
+.weight-warpper {
   display: flex;
   align-items: center;
   flex: 1.2;
@@ -475,7 +467,7 @@ button {
   box-sizing: border-box;
 }
 
-.total-wrapper .total {
+.weight-warpper .weight-input {
   flex: 1;
   min-width: 0;
   border: none !important;
@@ -485,12 +477,12 @@ button {
   text-align: right;
 }
 
-.total-wrapper .total:focus {
+.weight-warpper .weight-input:focus {
   outline: none;
   background-color: #f0f8ff;
 }
 
-.total-wrapper .unit {
+.weight-warpper .unit {
   flex-shrink: 0;
   border: none;
   border-left: 1px solid #ccc;
@@ -503,27 +495,7 @@ button {
   appearance: none;
   -webkit-appearance: none;
   text-align: center;
-  width: 36px;
-}
-
-/* 価格 */
-.row-line1 .price {
-  flex: 0.8;
-  min-width: 0;
-  text-align: right;
-}
-
-/* 2行目：使用量 */
-.row-line2 {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding-left: 2px;
-}
-
-.row-line2 .used {
-  width: 22%;
-  text-align: right;
+  /* width: 36px; */
 }
 
 .unit-label {
@@ -600,7 +572,7 @@ button {
 /* ==============================
    レシピ保存ボタン
    ============================== */
-.recipe-save-btn { margin: 8px 0 0 8px; }
+/* .recipe-save-btn { margin: 8px 0 0 8px; } */
 
 /* ==============================
    モーダル
