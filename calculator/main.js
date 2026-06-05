@@ -119,7 +119,7 @@ function createRow() {
       <div class="field-group name-field">
         <label>食材名</label>
         <div class="name-warpper">
-          <input type="text" class="name-input" placeholder="例：卵" autocomplete="off">
+          <input type="text" class="name-input" placeholder="卵" autocomplete="off">
           <ul class="suggestions hidden"></ul>
         </div>
       </div>
@@ -136,7 +136,7 @@ function createRow() {
       <div class="field-group weight-field">
         <label>内容量</label>
         <div class="weight-warpper">
-          <input type="text" class="weight-input" inputmode="decimal" placeholder="例：10">
+          <input type="text" class="weight-input" inputmode="decimal" placeholder="10">
           <select class="unit">
             <option value="個">個</option>
             <option value="g">g</option>
@@ -147,13 +147,13 @@ function createRow() {
       
       <div class="field-group price-field">
         <label>価格</label>
-        <input type="text" class="price-input" inputmode="decimal" placeholder="例：298">
+        <input type="text" class="price-input" inputmode="decimal" placeholder="298">
       </div>
 
       <div class="field-group usage-field">
         <label>使用量</label>
         <div class="usage-wrapper">
-          <input type="text" class="usage-input" inputmode="decimal" placeholder="例：1">
+          <input type="text" class="usage-input" inputmode="decimal" placeholder="1">
           <span class="unit-label">個</span>
         </div>
       </div>
