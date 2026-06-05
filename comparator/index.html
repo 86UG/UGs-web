@@ -41,6 +41,9 @@
             <li class="desc">食材のデータを集めよう！
               <ul>
                 <li>店舗名・食材名・内容量・価格を入力して「登録」を押すと、「食材リスト」へ登録されます。カテゴリやメモを活用してもよし。</li>
+                  <ul>
+                    <li>内容量の単位は選択できます。</li>
+                  </ul>
                 <li>データはブラウザに自動保存されます。</li>
               </ul>
             </li>
@@ -84,21 +87,21 @@
               <div class="field-group">
                 <label for="i-store">店舗名</label>
                 <div class="ac-wrapper">
-                  <input type="text" id="i-store" placeholder="例：Aスーパー" autocomplete="off">
+                  <input type="text" id="i-store" placeholder="Aスーパー" autocomplete="off">
                   <ul class="suggestions hidden" id="sug-store"></ul>
                 </div>
               </div>
               <div class="field-group">
                 <label for="i-food">食材名</label>
                 <div class="ac-wrapper">
-                  <input type="text" id="i-food" placeholder="例：卵" autocomplete="off">
+                  <input type="text" id="i-food" placeholder="卵" autocomplete="off">
                   <ul class="suggestions hidden" id="sug-food"></ul>
                 </div>
               </div>
               <div class="field-group">
                 <label>内容量</label>
                 <div class="total-wrapper">
-                  <input type="text" id="i-qty" inputmode="decimal" placeholder="例：10" class="total">
+                  <input type="text" id="i-qty" inputmode="decimal" placeholder="10" class="total">
                   <select id="i-unit" class="unit">
                     <option value="個">個</option>
                     <option value="g">g</option>
@@ -108,7 +111,7 @@
               </div>
               <div class="field-group">
                 <label for="i-price">価格</label>
-                <input type="text" id="i-price" inputmode="decimal" placeholder="例：198">
+                <input type="text" id="i-price" inputmode="decimal" placeholder="198">
               </div>
             </div>
 
