@@ -113,6 +113,13 @@ function escapeAttr(str) {
   return String(str).replace(/&/g, "&amp;").replace(/"/g, "&quot;");
 }
 
+// 単価の表示桁数：10未満→2桁、10以上100未満→1桁、100以上→0桁
+function formatUnitPrice(v) {
+  if (v < 10)  return v.toFixed(2);
+  if (v < 100) return v.toFixed(1);
+  return v.toFixed(0);
+}
+
 // カテゴリ正規化（空白→"未分類"）
 function normCat(c) { return (c && c.trim()) ? c.trim() : "未分類"; }
 
@@ -133,7 +140,7 @@ function calcUnitPrice() {
   const el    = document.getElementById("upd");
 
   if (!isNaN(qty) && qty > 0 && !isNaN(price) && price > 0) {
-    const up = (price / qty).toFixed(2);
+    const up = formatUnitPrice(price / qty);
     el.className = "unit-price-display has-value";
     el.innerHTML = `<span class="upd-label">単価</span><span class="upd-value">¥${up}<span class="upd-unit"> / ${unit}</span></span>`;
   } else {
@@ -224,7 +231,7 @@ function registerItem() {
 
   ItemStore.upsert({ id, store, food, qty, unit, price, unitPrice, category, memo });
 
-  showMsg(`登録しました — 単価：¥${unitPrice.toFixed(2)}/${unit}`, "success");
+  showMsg(`登録しました — 単価：¥${formatUnitPrice(unitPrice)}/${unit}`, "success");
 
   // 店舗・カテゴリは維持、食材以降をクリア
   foodEl.value  = "";
@@ -471,7 +478,7 @@ function renderFoodView() {
           <div class="item-row${hasMemo?' has-memo':''}" onclick="toggleMemoSlide('fv-memo-${r.id}',event,${hasMemo})">
             <div class="heat-bg" style="background:${c.bgColor};opacity:${c.bgOpacity};"></div>
             <div class="item-row-name">${escapeHtml(r.store)}</div>
-            <div class="item-row-price" style="${tStyle}">¥${r.unitPrice.toFixed(2)}/${r.unit}</div>
+            <div class="item-row-price" style="${tStyle}">¥${formatUnitPrice(r.unitPrice)}/${r.unit}</div>
             <div class="badge-slot">${badgeInner}</div>
             <div class="memo-indicator">${hasMemo ? MEMO_ICON_SVG : ''}</div>
             <div class="row-actions" onclick="event.stopPropagation()">
@@ -558,7 +565,7 @@ function renderStoreView() {
           <div class="item-row${hasMemo?' has-memo':''}" onclick="toggleMemoSlide('sv-memo-${r.id}',event,${hasMemo})">
             <div class="heat-bg" style="background:${c.bgColor};opacity:${c.bgOpacity};"></div>
             <div class="item-row-name">${escapeHtml(r.food)}</div>
-            <div class="item-row-price" style="${tStyle}">¥${r.unitPrice.toFixed(2)}/${r.unit}</div>
+            <div class="item-row-price" style="${tStyle}">¥${formatUnitPrice(r.unitPrice)}/${r.unit}</div>
             <div class="badge-slot">${badgeInner}</div>
             <div class="memo-indicator">${hasMemo ? MEMO_ICON_SVG : ''}</div>
             <div class="row-actions" onclick="event.stopPropagation()">
