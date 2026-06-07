@@ -7,21 +7,21 @@ const RICE_TYPES = {
     rawPerGo:       150,   // g／合（炊く前）
     cookedPerGo:    330,   // g／合（炊いた後）
     waterPerGo:     200,   // mL／合
-    kcalPer100gRaw: 343,   // kcal／100g（炊く前）
+    kcalPer100gRaw: 342,   // kcal／100g（炊く前）
   },
   white_musen: {
     name:           '白米（無洗米）',
     rawPerGo:       150,
     cookedPerGo:    330,
     waterPerGo:     230,
-    kcalPer100gRaw: 343,
+    kcalPer100gRaw: 342,
   },
   brown: {
     name:           '玄米',
     rawPerGo:       150,
     cookedPerGo:    300,
     waterPerGo:     270,
-    kcalPer100gRaw: 340,
+    kcalPer100gRaw: 346,
   },
 };
 
