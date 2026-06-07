@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="お米の合・グラム・茶碗杯数を相互換算。炊くときの水の量やカロリーも表示。白米・玄米・無洗米に対応。">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="お米換算（仮）｜UGtools">
+    <meta property="og:description" content="お米の合・グラム・茶碗杯数を相互換算。炊くときの水の量やカロリーも表示。">
+    <meta property="og:url" content="https://ugs-web.vercel.app/rice-converter/">
+    <meta name="twitter:card" content="summary">
+    <title>お米換算（仮）｜UGtools</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+
+    <!-- 共通ヘッダー -->
+    <header class="site-header">
+      <a href="/" class="site-logo">UGtools</a>
+      <p class="site-tagline">自炊・節約に役立つ計算ツール集</p>
+    </header>
+
+    <div class="page-wrapper">
+
+      <div id="title-area">
+        <h1>お米換算（仮）</h1>
+        <p>合・グラム・茶碗の杯数を換算します。水の量とカロリーも表示します。</p>
+      </div>
+
+      <div class="container">
+
+        <!-- 左カラム：入力 -->
+        <div class="col-left">
+          <section class="panel">
+            <h2>🍚 換算する</h2>
+
+            <!-- お米の種類 -->
+            <div class="field-group">
+              <label>お米の種類</label>
+              <div class="rice-type-btns" id="rice-type-btns">
+                <button class="rice-type-btn active" data-type="white_regular">白米（普通）</button>
+                <button class="rice-type-btn" data-type="white_musen">白米（無洗米）</button>
+                <button class="rice-type-btn" data-type="brown">玄米</button>
+              </div>
+            </div>
+
+            <!-- 量 + 単位 -->
+            <div class="field-group">
+              <label>量</label>
+              <div class="total-wrapper">
+                <input
+                  type="text"
+                  id="s-amount"
+                  inputmode="decimal"
+                  placeholder="例：2"
+                  class="total"
+                >
+                <select id="s-unit" class="unit" style="width:96px;">
+                  <option value="go">合</option>
+                  <option value="g_raw">g（炊く前）</option>
+                  <option value="g_cooked">g（炊いた後）</option>
+                  <option value="chawan">茶碗（杯）</option>
+                </select>
+              </div>
+            </div>
+
+          </section>
+        </div>
+
+        <!-- 右カラム：換算結果 -->
+        <div class="col-right">
+          <section class="panel">
+            <h2>📋 換算結果</h2>
+            <div id="result-body">
+              <p class="empty-msg">量を入力すると結果が表示されます</p>
+            </div>
+          </section>
+        </div>
+
+      </div>
+
+    </div><!-- /.page-wrapper -->
+
+    <footer id="site-footer">
+      <p class="footer-copy">© 2026 UGtools</p>
+      <nav class="footer-nav">
+        <a href="../privacy-policy.html">プライバシーポリシー</a>
+      </nav>
+    </footer>
+
+    <script src="main.js" defer></script>
+  </body>
+</html>
