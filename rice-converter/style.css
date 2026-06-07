@@ -1,0 +1,368 @@
+/* converter/style.css をベースに、お米換算専用スタイルを追加 */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    "Noto Sans JP",
+    system-ui, -apple-system, "Segoe UI", Roboto,
+    "Hiragino Sans", "Yu Gothic UI", "Yu Gothic",
+    "Hiragino Kaku Gothic ProN", Meiryo,
+    "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  background: #f9fafb;
+  min-width: 375px;
+  line-height: 1.6;
+}
+
+:root {
+  --primary-color:         #16a34a;
+  --primary-hover-color:   #15803d;
+  --secondary-color:       #f3f4f6;
+  --secondary-hover-color: #e5e7eb;
+  --alert-color:           #ffe6e6;
+  --panel:                 #ffffff;
+  --border:                #e5e7eb;
+  --row-hover-color:       #f3f4f6;
+  --text:                  #111827;
+  --text-sub:              #6b7280;
+
+  --radius:     10px;
+  --shadow:     0 2px 6px rgba(0,0,0,0.08);
+  --control-h:  32px;
+  --control-px: 8px;
+
+  --color-cheap-bg:   #E1F5EE;
+  --color-cheap-text: #0F6E56;
+}
+
+/* ==============================
+   タイトル
+   ============================== */
+#title-area { margin: 10px 0 20px 0; }
+#title-area h1 { margin: 0 0 5px 0; }
+#title-area p { font-size: 13px; color: #666; margin: 0; }
+
+/* ==============================
+   レイアウト
+   ============================== */
+.page-wrapper {
+  max-width: 1072px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1040px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 20px;
+  align-items: flex-start;
+}
+
+.col-left, .col-right {
+  flex: 1 1 440px;
+  max-width: 500px;
+  min-width: 0;
+}
+
+@media (max-width: 767px) {
+  .container {
+    display: block;
+    max-width: 500px;
+  }
+  .col-left, .col-right {
+    width: 100%;
+    max-width: 100%;
+  }
+  input, select {
+    font-size: 16px;
+  }
+}
+
+/* ==============================
+   パネル
+   ============================== */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  margin: 12px 0;
+  box-shadow: var(--shadow);
+}
+
+.panel h2 { margin: 0 0 12px 0; }
+
+/* ==============================
+   共通ヘッダー
+   ============================== */
+.site-header {
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 24px 24px;
+  text-align: center;
+}
+
+.site-logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary-color);
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+  text-decoration: none;
+  display: block;
+}
+
+.site-tagline {
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+/* ==============================
+   入力全般
+   ============================== */
+input, select {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  padding: 3px;
+  transition: all 0.15s ease;
+  height: var(--control-h);
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid #4a90e2;
+  background-color: #f0f8ff;
+  box-shadow: 0 0 4px rgba(74,144,226,0.5);
+}
+
+input::placeholder { color: #aaa; }
+
+/* ==============================
+   入力グリッド
+   ============================== */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.field-group label {
+  font-size: 12px;
+  color: var(--text-sub);
+  font-weight: 500;
+}
+
+.field-group select,
+.field-group input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ==============================
+   量＋単位一体化ラッパー
+   ============================== */
+.total-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  height: var(--control-h);
+  box-sizing: border-box;
+}
+
+.total-wrapper .total {
+  flex: 1;
+  min-width: 0;
+  border: none !important;
+  box-shadow: none !important;
+  height: 100%;
+  padding: 0 var(--control-px);
+  text-align: right;
+}
+
+.total-wrapper .total:focus {
+  outline: none;
+  background-color: #f0f8ff;
+}
+
+.total-wrapper .unit {
+  flex-shrink: 0;
+  border: none;
+  border-left: 1px solid #ccc;
+  background: #f3f4f6;
+  height: 100%;
+  padding: 0 4px;
+  font-size: 12px;
+  cursor: pointer;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  text-align: center;
+}
+
+/* ==============================
+   お米の種類ボタン
+   ============================== */
+.rice-type-btns {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.rice-type-btn {
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-sub);
+  cursor: pointer;
+  box-shadow: none;
+  height: auto;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.rice-type-btn.active {
+  background: var(--color-cheap-bg);
+  border-color: #9ecebf;
+  color: var(--color-cheap-text);
+  font-weight: 500;
+}
+
+/* ==============================
+   換算結果
+   ============================== */
+.conv-summary {
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.conv-item {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.conv-table {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.conv-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 14px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: var(--secondary-color);
+}
+
+.conv-row.is-input {
+  background: var(--color-cheap-bg);
+  border-color: #9ecebf;
+}
+
+.conv-unit-lbl {
+  font-size: 13px;
+  color: var(--text-sub);
+  font-weight: 500;
+}
+
+.conv-row.is-input .conv-unit-lbl {
+  color: var(--color-cheap-text);
+}
+
+.conv-val {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.5px;
+}
+
+.conv-val-unit {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-sub);
+  margin-left: 2px;
+}
+
+.conv-row.is-input .conv-val {
+  color: var(--color-cheap-text);
+}
+
+/* ==============================
+   水・カロリー表示
+   ============================== */
+.conv-extra {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.conv-extra-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 14px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+}
+
+.conv-extra-label {
+  font-size: 13px;
+  color: var(--text-sub);
+  font-weight: 500;
+}
+
+.conv-extra-val {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.conv-note {
+  font-size: 11px;
+  color: var(--text-sub);
+  line-height: 1.5;
+}
+
+/* ==============================
+   共通
+   ============================== */
+.empty-msg { font-size: 13px; color: var(--text-sub); margin: 4px 0; }
+.hidden { display: none; }
+
+/* ==============================
+   フッター
+   ============================== */
+#site-footer {
+  margin-top: 40px;
+  padding: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-copy { font-size: 12px; color: var(--text-sub); margin: 0; }
+.footer-nav a { font-size: 12px; color: var(--text-sub); text-decoration: none; }
+.footer-nav a:hover { color: var(--primary-color); text-decoration: underline; }
