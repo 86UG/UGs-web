@@ -114,51 +114,47 @@ function createRow() {
   row.className = "row";
 
   row.innerHTML = `
-    <!--<div class="ingredient-grid">-->
-
-      <div class="field-group name-field">
-        <label>食材名</label>
-        <div class="name-warpper">
-          <input type="text" class="name-input" placeholder="卵" autocomplete="off">
-          <ul class="suggestions hidden"></ul>
-        </div>
+    <div class="field-group">
+      <label>食材名</label>
+      <div class="combo">
+        <input type="text" class="name-input" placeholder="卵" autocomplete="off">
+        <ul class="suggestions hidden"></ul>
       </div>
+    </div>
 
-      <div class="actions actions-field">
-        <button class="btn-icon save-btn" aria-label="食材を保存" title="食材を保存">
-          ${REGISTER_ICON_SVG}
-        </button>
-        <button class="btn-icon delete-btn" aria-label="削除" title="削除">
-          ${TRASH_ICON_SVG}
-        </button>
-      </div>
+    <div class="actions">
+      <button class="btn-icon save-btn" aria-label="食材を保存" title="食材を保存">
+        ${REGISTER_ICON_SVG}
+      </button>
+      <button class="btn-icon delete-btn" aria-label="削除" title="削除">
+        ${TRASH_ICON_SVG}
+      </button>
+    </div>
 
-      <div class="field-group weight-field">
-        <label>内容量</label>
-        <div class="weight-warpper">
-          <input type="text" class="weight-input" inputmode="decimal" placeholder="10">
-          <select class="unit">
-            <option value="個">個</option>
-            <option value="g">g</option>
-            <option value="mL">mL</option>
-          </select>
-        </div>
+    <div class="field-group">
+      <label>内容量</label>
+      <div class="combo combo-joined">
+        <input type="text" class="weight-input" inputmode="decimal" placeholder="10">
+        <select class="unit">
+          <option value="個">個</option>
+          <option value="g">g</option>
+          <option value="mL">mL</option>
+        </select>
       </div>
-      
-      <div class="field-group price-field">
-        <label>価格</label>
-        <input type="text" class="price-input" inputmode="decimal" placeholder="298">
-      </div>
+    </div>
 
-      <div class="field-group usage-field">
-        <label>使用量</label>
-        <div class="usage-wrapper">
-          <input type="text" class="usage-input" inputmode="decimal" placeholder="1">
-          <span class="unit-label">個</span>
-        </div>
-      </div>
+    <div class="field-group">
+      <label>価格</label>
+      <input type="text" class="price-input" inputmode="decimal" placeholder="298">
+    </div>
 
-    <!--</div>-->
+    <div class="field-group">
+      <label>使用量</label>
+      <div class="combo">
+        <input type="text" class="usage-input" inputmode="decimal" placeholder="1">
+        <span class="unit-label">個</span>
+      </div>
+    </div>
   `;
 
   setupNumberInputs(row);
@@ -420,7 +416,7 @@ function createEditRow(item) {
   const unitVal = item.unit ?? "g";
   div.innerHTML = `
     <input class="col-name" value="${item.name}">
-    <div class="col-total-wrapper">
+    <div class="combo combo-joined">
       <input class="col-total" inputmode="decimal" value="${Number(item.total).toLocaleString()}">
       <select class="col-unit">
         <option value="個" ${unitVal === "個" ? "selected" : ""}>個</option>
@@ -481,7 +477,7 @@ function saveEdit(id) {
 // ==============================
 document.addEventListener("click", e => {
   document.querySelectorAll(".suggestions").forEach(list => {
-    const wrapper = list.closest(".name-warpper");
+    const wrapper = list.closest(".combo");
 
     if (!wrapper.contains(e.target)) {
       list.classList.add("hidden");
