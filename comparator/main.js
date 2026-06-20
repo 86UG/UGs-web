@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener("click", e => {
     document.querySelectorAll(".suggestions").forEach(list => {
-      if (!list.closest(".ac-wrapper").contains(e.target)) list.classList.add("hidden");
+      if (!list.closest(".combo").contains(e.target)) list.classList.add("hidden");
     });
   });
 });
@@ -278,14 +278,14 @@ function renderEditFormHtml(item, prefix) {
       <div class="edit-form-grid">
         <div class="field-group" style="grid-column:1/-1;">
           <label>食材名</label>
-          <div class="ac-wrapper">
+          <div class="combo">
             <input class="ef-food" type="text" value="${escapeAttr(item.food)}" autocomplete="off">
             <ul class="suggestions hidden ef-food-sug"></ul>
           </div>
         </div>
         <div class="field-group">
           <label>内容量</label>
-          <div class="total-wrapper ef-qty-wrapper">
+          <div class="combo combo-joined">
             <input class="ef-qty total" type="text" inputmode="decimal" value="${Number(item.qty).toLocaleString()}">
             <select class="ef-unit unit ef-unit-select">
               <option value="個" ${u==="個"?"selected":""}>個</option>
@@ -300,7 +300,7 @@ function renderEditFormHtml(item, prefix) {
         </div>
         <div class="field-group" style="grid-column:1/-1;">
           <label>カテゴリ</label>
-          <div class="ac-wrapper">
+          <div class="combo">
             <input class="ef-category" type="text" value="${escapeAttr(item.category || '')}" autocomplete="off">
             <ul class="suggestions hidden ef-category-sug"></ul>
           </div>
@@ -619,12 +619,6 @@ function toggleAllCards(viewId, open) {
   });
 }
 
-function togglePanel(bodyId, headerEl) {
-  const body = document.getElementById(bodyId);
-  const icon = headerEl.querySelector(".toggle-icon");
-  const isHidden = body.classList.toggle("hidden");
-  icon.textContent = isHidden ? "▼" : "▲";
-}
 
 // ==============================
 // エクスポート

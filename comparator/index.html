@@ -77,21 +77,21 @@
             <div class="input-grid">
               <div class="field-group">
                 <label for="i-store">店舗名</label>
-                <div class="ac-wrapper">
+                <div class="combo">
                   <input type="text" id="i-store" placeholder="Aスーパー" autocomplete="off">
                   <ul class="suggestions hidden" id="sug-store"></ul>
                 </div>
               </div>
               <div class="field-group">
                 <label for="i-food">食材名</label>
-                <div class="ac-wrapper">
+                <div class="combo">
                   <input type="text" id="i-food" placeholder="卵" autocomplete="off">
                   <ul class="suggestions hidden" id="sug-food"></ul>
                 </div>
               </div>
               <div class="field-group">
                 <label>内容量</label>
-                <div class="total-wrapper">
+                <div class="combo combo-joined">
                   <input type="text" id="i-qty" inputmode="decimal" placeholder="10" class="total">
                   <select id="i-unit" class="unit">
                     <option value="個">個</option>
@@ -114,7 +114,7 @@
             <!-- カテゴリ -->
             <div class="field-group" style="margin-top:8px;">
               <label for="i-category">カテゴリ（任意）</label>
-              <div class="ac-wrapper">
+              <div class="combo">
                 <input type="text" id="i-category" placeholder="例：野菜・肉類・乳製品" autocomplete="off">
                 <ul class="suggestions hidden" id="sug-category"></ul>
               </div>
